@@ -1,0 +1,23 @@
+{
+  "name": "gitty-web",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/markdown-remark": "^7.3.0",
+    "@astrojs/mdx": "^8.0.3",
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/solid-js": "^7.0.2",
+    "@astrojs/starlight": "^0.42.5",
+    "astro": "^7.3.6",
+    "solid-js": "^1.9.15",
+    "typescript": "^5.9.3"
+  }
+}
