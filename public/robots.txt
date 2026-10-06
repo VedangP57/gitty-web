@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /og
+Disallow: /icon
+
+Sitemap: https://gitty.runs-on.dev/sitemap-index.xml

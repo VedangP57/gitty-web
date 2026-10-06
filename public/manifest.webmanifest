@@ -1,0 +1,17 @@
+{
+  "name": "gitty — a fast terminal git client",
+  "short_name": "gitty",
+  "description": "History, Changes, line staging, fetch/pull/push, search and compare — the GitHub Desktop experience in your terminal.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#131017",
+  "theme_color": "#131017",
+  "categories": ["developer", "productivity", "utilities"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
