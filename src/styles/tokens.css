@@ -1,0 +1,114 @@
+/* gitty design tokens — "Aubergine × Acid Lime".
+   Dark (ink) is the brand; paper is its daylight twin. */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --font-display: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  --radius: 0;
+  --gut: 34px;
+}
+
+/* ink */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #131017;
+  --panel: #1a1622;
+  --mass: #241e30;
+  --grid: #1e1a28;
+  --line: #2c2539;
+  --line2: #3d3452;
+  --ink: #f1ebf3;
+  --dim: #cbc2d6;
+  --faint: #9c91b0;
+  --faint2: #8f84a4;
+  --spot: #d4ff4d;
+  --spot-ink: #131017;
+  --spot-soft: color-mix(in srgb, var(--spot) 12%, transparent);
+  --st-working: #f5d98b;
+  --st-blocked: #ff9d94;
+  --st-idle: #a9e5c0;
+  --st-done: #9fd8d4;
+}
+
+/* paper */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f6f2ea;
+  --panel: #efe9de;
+  --mass: #e5ded0;
+  --grid: #ebe4d7;
+  --line: #e2dacb;
+  --line2: #cfc5b2;
+  --ink: #1c1722;
+  --dim: #4d4556;
+  --faint: #6a6175;
+  --faint2: #655c70;
+  --spot: #3f6212;
+  --spot-ink: #f6f2ea;
+  --spot-soft: color-mix(in srgb, var(--spot) 14%, transparent);
+  --st-working: #8a6a12;
+  --st-blocked: #b03a2e;
+  --st-idle: #2f7d4f;
+  --st-done: #1f6f68;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #f6f2ea;
+    --panel: #efe9de;
+    --mass: #e5ded0;
+    --grid: #ebe4d7;
+    --line: #e2dacb;
+    --line2: #cfc5b2;
+    --ink: #1c1722;
+    --dim: #4d4556;
+    --faint: #6a6175;
+    --faint2: #655c70;
+    --spot: #3f6212;
+    --spot-ink: #f6f2ea;
+    --spot-soft: color-mix(in srgb, var(--spot) 14%, transparent);
+    --st-working: #8a6a12;
+    --st-blocked: #b03a2e;
+    --st-idle: #2f7d4f;
+    --st-done: #1f6f68;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--spot);
+  color: var(--spot-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--spot);
+  outline-offset: 2px;
+}

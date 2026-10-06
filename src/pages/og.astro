@@ -1,0 +1,95 @@
+---
+// Source image for the Open Graph card — screenshotted at 1200×630 into public/og.png.
+import '../styles/tokens.css';
+
+const line1 = 'Your repo, live.';
+const line2 = 'Leave it open.';
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>gitty og</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      .poster {
+        box-sizing: border-box;
+        width: 1200px;
+        height: 630px;
+        background: var(--bg);
+        color: var(--ink);
+        padding: 72px 80px;
+        display: flex;
+        flex-direction: column;
+        border-top: 14px solid var(--spot);
+      }
+
+      .mark {
+        font-family: var(--font-display);
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+
+
+      h1 {
+        font-family: var(--font-display);
+        font-weight: 900;
+        font-size: 96px;
+        line-height: 0.98;
+        letter-spacing: -0.035em;
+        margin: 34px 0 0;
+      }
+
+      .sub {
+        font-family: var(--font-body);
+        font-size: 30px;
+        color: var(--dim);
+        margin-top: 30px;
+      }
+
+      .foot {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: var(--font-mono);
+        font-size: 26px;
+        color: var(--faint);
+        border-top: 2px solid var(--line2);
+        padding-top: 30px;
+      }
+
+      .foot .cmd {
+        color: var(--ink);
+      }
+
+      .foot .cmd b {
+        color: var(--spot);
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="poster">
+      <div class="mark">gitty</div>
+      <h1>{line1}<br />{line2}</h1>
+      <div class="sub">History, Changes, line staging, fetch, pull and push — in Rust.</div>
+      <div class="foot">
+        <span class="cmd"><b>$</b> brew install vedangp57/tap/gitty</span>
+        <span>github.com/VedangP57/gitty</span>
+      </div>
+    </div>
+  </body>
+</html>

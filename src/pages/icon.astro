@@ -1,0 +1,57 @@
+---
+// Icon source — screenshotted at 512/192/180 into public/icon-*.png.
+import '../styles/tokens.css';
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>gitty icon</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background: #131017;
+      }
+
+      .tile {
+        box-sizing: border-box;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #131017;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .g {
+        font-family: var(--font-display);
+        font-weight: 900;
+        font-size: 66vw;
+        line-height: 1;
+        color: #d4ff4d;
+        transform: translateY(-6vh);
+      }
+
+      .bar {
+        position: absolute;
+        bottom: 18vh;
+        width: 29vw;
+        height: 5vw;
+        background: #f1ebf3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tile">
+      <span class="g">g</span>
+      <span class="bar"></span>
+    </div>
+  </body>
+</html>

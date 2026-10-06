@@ -1,0 +1,114 @@
+/* Re-skin Starlight with the gitty tokens. */
+
+:root {
+  --sl-color-bg: var(--bg);
+  --sl-color-bg-nav: var(--panel);
+  --sl-color-bg-sidebar: var(--panel);
+  --sl-color-bg-accent: var(--mass);
+
+  --sl-color-text: var(--ink);
+  --sl-color-text-accent: var(--spot);
+  --sl-color-accent: var(--spot);
+  --sl-color-accent-high: color-mix(in srgb, var(--spot) 70%, white);
+  --sl-color-accent-low: color-mix(in srgb, var(--spot) 30%, transparent);
+
+  /* Starlight scale: 1 = strongest text … 7 = faintest surface. */
+  --sl-color-white: var(--ink);
+  --sl-color-black: var(--bg);
+  --sl-color-gray-1: var(--ink);
+  --sl-color-gray-2: var(--dim);
+  --sl-color-gray-3: var(--dim);
+  --sl-color-gray-4: var(--faint);
+  --sl-color-gray-5: var(--line2);
+  --sl-color-gray-6: var(--mass);
+  --sl-color-gray-7: var(--panel);
+
+  --sl-color-hairline: var(--line);
+  --sl-color-hairline-light: var(--line);
+
+  --sl-font: var(--font-body);
+  --sl-font-mono: var(--font-mono);
+  --sl-font-system: var(--font-body);
+  --sl-font-system-mono: var(--font-mono);
+}
+
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.sl-markdown-content h4,
+.sl-markdown-content h5,
+.sl-markdown-content h6,
+.site-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  word-spacing: 0.06em;
+  line-height: 1.1;
+}
+
+.site-title {
+  font-size: 24px;
+  line-height: 26px;
+  letter-spacing: -0.03em;
+  text-transform: none;
+}
+
+.sl-markdown-content h1 {
+  font-size: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+  font-weight: 900;
+}
+
+.sl-markdown-content table {
+  font-variant-numeric: tabular-nums;
+}
+
+.sl-markdown-content th {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.sl-markdown-content :not(pre) > code {
+  font-family: var(--font-mono);
+  background: var(--mass);
+  border: 1px solid var(--line);
+}
+
+:root,
+:root[data-theme="dark"] {
+  --sl-color-text-invert: var(--spot-ink);
+}
+
+:root,
+:root[data-theme="dark"],
+:root[data-theme="light"] {
+  border-radius: 0;
+}
+
+/* Sidebar: current page is marked by a bar and a surface, not a filled block. */
+.sidebar-content a[aria-current="page"],
+.sidebar-content a[aria-current="page"]:hover {
+  background: var(--mass);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.sidebar-content a:hover {
+  color: var(--ink);
+}
+
+/* Header controls: legible in both themes. */
+site-search button {
+  color: var(--dim);
+  background: var(--bg);
+  border-color: var(--line2);
+}
+
+site-search button:hover {
+  border-color: var(--spot);
+  color: var(--ink);
+}
+
+starlight-theme-select select {
+  color: var(--ink);
+}

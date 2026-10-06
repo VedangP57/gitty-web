@@ -1,0 +1,53 @@
+---
+// Starlight <head> override: default tags + PWA/SEO extras + per-page JSON-LD.
+const { starlightRoute } = Astro.locals;
+const { head, entry, locale, siteTitle } = starlightRoute;
+
+const description = entry?.data?.description ?? '';
+const url = new URL(Astro.url.pathname, Astro.site);
+
+const origin = String(new URL('/', Astro.site));
+const pageTitle = entry?.data?.title ?? siteTitle;
+const jsonLd = [
+  {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: entry?.data?.title ?? siteTitle,
+  description,
+  url: String(url),
+  inLanguage: locale ?? 'en',
+  isPartOf: { '@type': 'WebSite', name: siteTitle, url: String(new URL('/', Astro.site)) },
+  publisher: { '@type': 'Organization', name: 'gitty', url: String(new URL('/', Astro.site)) },
+  image: String(new URL('/og.png', Astro.site)),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'gitty', item: origin },
+      { '@type': 'ListItem', position: 2, name: 'Docs', item: `${origin}docs/installation/` },
+      { '@type': 'ListItem', position: 3, name: pageTitle, item: String(url) },
+    ],
+  },
+];
+---
+
+{head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+
+<meta name="theme-color" content="#131017" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="gitty" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/icon-180.png" sizes="180x180" />
+<link rel="mask-icon" href="/favicon.svg" color="#d4ff4d" />
+<meta property="og:image" content={String(new URL('/og.png', Astro.site))} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:image" content={String(new URL('/og.png', Astro.site))} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta property="og:image:alt" content="gitty — your repo, live. Leave it open." />
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<script src="/sw-register.js" defer></script>
