@@ -1,0 +1,60 @@
+---
+title: Using gitty
+description: The History tab, the Changes tab, line staging, network operations, search and compare.
+---
+
+The window has a **History** tab (`2`) and a **Changes** tab (`1`). `Tab` moves
+between panes and `?` shows every key.
+
+The mouse works throughout: click to select, scroll any pane, drag the diff
+gutter to pick lines, Shift-click for a commit range, and double-click a file or
+diff line to open it in `$EDITOR` at that line.
+
+## History
+
+Local and remote commits with their refs, and marks for what is ahead of or
+behind the upstream. On a branch that has never been pushed, `↑` marks what
+pushing it would publish.
+
+Select a commit — or a `V` range of them — for its files and a syntax-highlighted
+diff, unified or split (`s`). Added and deleted files always use the full width.
+
+`r` switches the list between the current branch plus upstream and every ref.
+
+## Changes
+
+Status that follows the file system:
+
+- **Stage** a file, hunk or individual line with `Space` — click the diff gutter
+  to pick lines. `a` stages everything, `H` stages the whole hunk.
+- **Discard** with `d`; a copy is kept in the Trash.
+- **Commit** in the box at the bottom with `c`. `A` amends the last commit and
+  `u` undoes it while it is still `HEAD`.
+- `F` filters the file list; `t` shows it as a tree.
+
+Staging uses the real git index — checkboxes always reflect `git status`.
+
+## Network
+
+`f` fetches, `p` pulls (fast-forward, merge or rebase) and `P` pushes, with
+progress in the top bar, `x` to cancel, and password or passphrase prompts
+inside the app. A background fetch runs every few minutes
+(`auto_fetch_minutes`).
+
+## Search
+
+`/` searches the whole history while you keep working — text, `author:` or
+`path:` filters. `n` and `N` move between matches; the list itself stays
+unfiltered.
+
+## Compare
+
+`b` compares `HEAD` with any branch: what is behind, what is ahead, and the
+files that differ.
+
+## Large repositories
+
+On a repository with at least 10,000 commits or 20,000 index entries, gitty
+tunes git once in the background — a commit-graph, `core.untrackedCache`, and
+`core.fsmonitor` where available — unless `auto_tune = false`. The keys it sets
+are recorded in `gitty.tuned`, and `gitty untune [PATH]` unsets exactly those.

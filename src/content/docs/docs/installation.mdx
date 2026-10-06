@@ -1,0 +1,72 @@
+---
+title: Installation
+description: Install gitty on macOS or Linux — Homebrew, shell installer, prebuilt archives, or crates.io.
+---
+
+gitty runs on macOS (Apple Silicon or Intel) and Linux (x86_64 or arm64).
+
+## Homebrew
+
+```sh
+brew install vedangp57/tap/gitty
+```
+
+Use the full name — it tells Homebrew to trust this one formula from the tap.
+
+## Shell installer
+
+Downloads a prebuilt binary into `~/.cargo/bin`:
+
+```sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/VedangP57/gitty/releases/latest/download/gitty-cli-installer.sh | sh
+```
+
+## Prebuilt archives
+
+Each release has archives for every supported target on the
+[Releases page](https://github.com/VedangP57/gitty/releases).
+
+On macOS a binary downloaded through a browser is quarantined; run this once:
+
+```sh
+xattr -d com.apple.quarantine gitty
+```
+
+## crates.io
+
+gitty is published as `gitty-cli` (the name `gitty` was taken on crates.io); the
+command is still `gitty`. Requires Rust 1.90 or newer and a C compiler for the
+bundled grammars and Oniguruma:
+
+```sh
+cargo install --locked gitty-cli
+```
+
+From a clone:
+
+```sh
+cargo install --locked --path crates/gitty
+```
+
+Building without the bundled tree-sitter grammars (`--no-default-features`)
+makes a much smaller binary that highlights through the syntect fallback.
+
+## Requirements
+
+- `git` 2.30 or newer on your `PATH`.
+- A terminal with mouse reporting; truecolor where the terminal has it, the
+  nearest 256-colour palette entry elsewhere.
+- Prebuilt Linux binaries need glibc 2.35 or newer (Ubuntu 22.04, Debian 12,
+  Fedora 36 and later). Build from source elsewhere.
+- On Linux, live refresh watches every directory with inotify. Repositories with
+  more directories than `fs.inotify.max_user_watches` allows open with a notice
+  and refresh when the terminal regains focus instead.
+
+## Run it
+
+```sh
+gitty              # the repository containing the current directory
+gitty path/to/repo
+gitty --theme dracula
+gitty untune [PATH]
+```

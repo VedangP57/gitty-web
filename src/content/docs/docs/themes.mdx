@@ -1,0 +1,54 @@
+---
+title: Themes
+description: gitty's built-in themes, how to write your own theme file, and the colour palette it accepts.
+---
+
+Press `T` for a theme picker with a live preview, or set `theme` in
+[configuration](/docs/configuration/).
+
+## Built-in
+
+`github-dark`, `github-light`, `rose-pine`, `rose-pine-dawn`,
+`catppuccin-mocha`, `catppuccin-latte`, `tokyo-night`, `dracula`,
+`gruvbox-dark`, `solarized-dark`, `solarized-light`.
+
+`theme = "auto"` (the default) picks light or dark from the terminal background.
+
+## Your own themes
+
+Put a file at `~/.config/gitty/themes/<name>.toml`. A theme names a `[palette]`
+and overrides only what differs:
+
+```toml
+inherit = "github-dark"
+
+[palette]
+accent = "#ff79c6"
+```
+
+### Palette keys
+
+| Key | Required |
+|---|---|
+| `bg` | yes |
+| `fg` | yes |
+| `muted` | yes |
+| `accent` | yes |
+| `border` | yes |
+| `red` | yes |
+| `green` | yes |
+| `yellow` | yes |
+| `blue` | yes |
+| `magenta` | yes |
+| `cyan` | yes |
+| `panel` | no |
+| `orange` | no |
+
+`inherit = "<theme>"` layers your file over another theme, so a personal theme
+is usually two or three lines.
+
+## Colour depth
+
+Colours are truecolor where the terminal supports it and the nearest xterm-256
+colour entry elsewhere. Highlighting stores capture names rather than colours,
+so switching themes never re-highlights anything.

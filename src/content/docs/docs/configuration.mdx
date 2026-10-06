@@ -1,0 +1,56 @@
+---
+title: Configuration
+description: Every gitty config key — theme, diff algorithm, whitespace, auto fetch, difftool and keybindings.
+---
+
+`~/.config/gitty/config.toml` (or `$XDG_CONFIG_HOME/gitty/config.toml`).
+
+Every key is optional. Unknown keys and bad values are reported at startup and
+fall back to the default.
+
+| Key | Default | Values |
+|---|---|---|
+| `theme` | `"auto"` | a theme name, or `"auto"` (light or dark by the terminal background) |
+| `tab_size` | `4` | 1–16 |
+| `diff_algorithm` | `"myers"` | `"myers"`, `"histogram"` |
+| `whitespace` | `"show"` | `"show"`, `"ignore-all"` (`-w`), `"ignore-amount"` (`-b`) |
+| `split_threshold` | `200` | terminal width at which split view turns on by itself |
+| `date_mode` | `"relative"` | `"relative"`, `"absolute"`, `"both"` |
+| `density` | `"compact"` | `"compact"`, `"comfortable"` |
+| `emph_alpha` | theme's | 0.0–1.0, strength of the changed-word highlight |
+| `auto_fetch_minutes` | `5` | `0` turns the background fetch off |
+| `auto_tune` | `true` | tune large repositories (commit-graph, fsmonitor, untracked cache) |
+| `difftool` | none | command for `O`, run as `<difftool> <old> <new>` |
+| `[keys]` | | action → key or keys — see [Keybindings](/docs/keys/) |
+
+```toml
+theme = "rose-pine"
+difftool = "delta --side-by-side"
+auto_fetch_minutes = 10
+
+[keys]
+fetch = "F5"
+down = ["j", "ctrl-n"]
+```
+
+## Difftool
+
+`$EDITOR` (or `$VISUAL`) and `difftool` are split like shell words but never run
+by a shell, and file paths are always passed as separate arguments. A GUI tool
+needs its wait flag — `"code --wait --diff"` — because the two temp files are
+removed when the command returns.
+
+## State
+
+Per-repository UI state — pane sizes, history scope, tree view — lives under
+`~/.local/state/gitty/`.
+
+## `gitty untune`
+
+Keys gitty sets while tuning a large repository are recorded in `gitty.tuned`.
+`gitty untune [PATH]` unsets exactly those (skipping any you have since
+changed) and leaves everything else alone:
+
+```sh
+gitty untune
+```
