@@ -15,7 +15,11 @@ Open gitty in the repository and press `2` for the History tab. The layout draws
 
 gitty's benchmark notes state the order: the UI draws its layout first and streams rows in afterwards. The README lists the first frame, with the layout drawn, at 14 ms. On a blobless clone of the Linux kernel, which has 1,484,291 commits, the first 500 history rows take 23 ms in the benchmark. Those were measured on Apple Silicon with a release build and a warm cache, so treat them as a sense of scale and not a promise for your machine.
 
-The notes also record that the first run after other disk activity is slower: with a cold page cache, reading the kernel's 945 refs takes about 0.8 to 1.0 seconds. If the first open of a very large repository feels slower than the next one, that is the documented cause.
+The notes also record that the first run after other disk activity is slower: with a cold page cache, reading the kernel's 945 refs takes about 0.8 to 1.0 seconds. If the first open of a very large repository feels slower than the next one, the benchmark notes name a cold page cache as one cause.
+
+## What stays quick once rows are in
+
+The README's performance table also gives the cost of the work you do after the first screen. A full history walk of the kernel takes 225 to 258 ms against a budget of under 400 ms. A 220 by 60 frame showing history and a highlighted diff takes 0.5 ms, against a budget of under 16 ms. For a selected commit, the median time to build its file list is 0.12 ms and to produce a file diff is 0.19 ms. The benchmark notes also say the diff is drawn before highlighting finishes, and the colors arrive from a two-thread highlight pool, so a large diff shows up first and gets its colors a moment later.
 
 ## Steps
 
@@ -40,14 +44,14 @@ A few keys change how much fits on screen:
 - `y` copies the short SHA and `Y` the full SHA.
 - `<` and `>` shrink or grow the focused pane.
 
-Your pane sizes, history scope and tree view are remembered per repository under `~/.local/state/gitty/`, so the next visit starts where you left it.
+Your pane sizes, history scope and tree view are remembered per repository under `~/.local/state/gitty/`.
 
 ## Read more than one commit
 
-`V` selects a range of commits, and Shift-click does the same with the mouse. [How to review a range of commits](/blog/review-a-commit-range/) walks through that. `/` searches the whole history while you keep working, covered in [How to search commits by text, author or path](/blog/search-commits/).
+`V` selects a range of commits, and Shift-click does the same with the mouse. [How to review a range of commits](/blog/review-a-commit-range/) walks through that. `/` searches the whole history while you keep working, with `n` and `N` to move between matches.
 
 ## If the repository still feels slow
 
 The docs give one cause worth checking. On a repository with at least 10,000 commits or 20,000 index entries, gitty tunes git once in the background, writing a commit-graph among other things, unless `auto_tune = false` is set in your config. The guide [Keep a git TUI fast on very large repositories](/blog/git-tui-large-repositories/) explains what the commit-graph changes, with the figures from gitty's own benchmark.
 
-See [Using gitty](/docs/using-gitty/) for the History tab and the [keybindings page](/docs/keys/) for every key named here.
+The History tab itself is described in [Using gitty](/docs/using-gitty/).

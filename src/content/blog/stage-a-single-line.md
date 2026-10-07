@@ -21,12 +21,20 @@ gitty's Changes tab is built for this. Its status follows the file system, and t
 
 1. Press `1` to open the Changes tab.
 2. Move to the file you changed. `j` and `k` (or the arrow keys) move through the list, and `Tab` moves between panes. `F` filters the file list if there are many files, and `t` shows it as a tree.
-3. Move into the diff pane and put the cursor on the line you want.
-4. Press `Space`. The line is staged.
+3. Press `Tab` to move to the next pane, where the diff is, and select the line you want.
+4. Press `Space` to stage it.
 
 With the mouse, drag the diff gutter to pick several lines, or click the gutter to pick one. The docs describe the gutter as the place to click or drag "to pick lines", and `Space` then stages the selection. If you prefer the keyboard for a block of lines, `v` selects a range of lines, and `Space` stages them.
 
 What you should see: the file's checkbox in the list changes to match, because checkboxes always reflect `git status`.
+
+## Read the change first
+
+Choosing lines is easier when you can see enough of the file. `e` shows more context near the cursor and `E` shows the whole file. `w` changes the whitespace mode, so a reformatted block does not hide the real edit, and `W` wraps long lines. If you would rather review in another viewer, `O` opens the diff in your difftool, which you set with `difftool` in the config. Choose the lines after you have read the whole change, not while you are still scrolling.
+
+## Stage a whole file
+
+In the file list, `Space` stages the file and a second `Space` unstages it. That is the same key as for a line, so one habit covers both. Use it when a file belongs entirely in the next commit, and save line staging for the files that mix two ideas.
 
 ## Stage a hunk or everything
 
@@ -37,15 +45,13 @@ Two shortcuts cover the common larger cases:
 
 A hunk is a block of changes that git groups together. Use `[` and `]` to jump to the previous and next hunk, and `{` and `}` to move between files, so you can walk a large change without leaving the keyboard.
 
-## Mouse and editor
+## Open a line in your editor
 
-The mouse works throughout: click to select a file or a line, scroll any pane, and drag the diff gutter to pick lines. Double-click a diff line to open it in `$EDITOR` at that line, which is useful when you spot a stray debug line and would rather delete it than leave it unstaged.
+Double-click a diff line to open it in `$EDITOR` at that line, which is useful when you spot a stray debug line and would rather delete it than leave it unstaged.
 
 ## How it relates to git status
 
-gitty stages through the real git index. The checkboxes in the file list always reflect `git status`, so you can stage a line in gitty, run `git status` in another terminal and see the same result. There is no separate staging area inside the tool to get out of step with git.
-
-That also means you can mix tools. Stage some lines in gitty, stage others with git on the command line, and the Changes tab will show both.
+gitty stages through the real git index. The checkboxes in the file list always reflect `git status`, so you can stage a line in gitty, run `git status` in another terminal and see the same result.
 
 ## Unstage a line
 
@@ -55,6 +61,6 @@ To throw a change away instead, `d` discards a file or lines. gitty asks first, 
 
 ## Commit what you staged
 
-Press `c` to write the commit message in the box at the bottom, then commit. If you forget a line afterwards, `A` amends the last commit. [How to undo your last commit safely](/blog/undo-last-commit/) covers amend and undo in more detail.
+Press `c` to write the commit message in the box at the bottom. If you forget a line afterwards, `A` amends the last commit. [How to undo your last commit safely](/blog/undo-last-commit/) covers amend and undo in more detail.
 
-Every key above is listed on the [keybindings page](/docs/keys/), and [Using gitty](/docs/using-gitty/) describes the Changes tab. If you are weighing gitty against other terminal clients, [gitty vs lazygit](/blog/gitty-vs-lazygit/) compares how each handles staging and where each fits.
+The Changes tab is described in [Using gitty](/docs/using-gitty/). If you are weighing gitty against other terminal clients, [gitty vs lazygit](/blog/gitty-vs-lazygit/) compares how each handles staging and where each fits.

@@ -7,15 +7,14 @@ tags: ["themes", "configuration", "customization"]
 order: 16
 ---
 
-Press `T` in gitty for a theme picker with a live preview. To keep a theme, set `theme` in `~/.config/gitty/config.toml`.
+Press `T` in gitty for a theme picker with a live preview. To set a theme permanently, set `theme` in `~/.config/gitty/config.toml`.
 
 **What you need:** gitty installed and a terminal you can open it in.
 
 ## Switch themes live
 
 1. Press `T` to open the picker.
-2. Move through the list. The picker has a live preview, so the preview changes as you go, so you can judge each theme on your own repository.
-3. Choose the one you want.
+2. Look at the live preview. You see each theme applied to your own repository before you commit to it.
 
 What you should see: colors across the History and Changes tabs change to the theme you picked. Highlighting stores capture names rather than colors, so switching themes never re-highlights anything.
 
@@ -35,15 +34,15 @@ The README says they reproduce the palettes of Catppuccin, Dracula, GitHub, Gruv
 
 ## Keep a theme in the config
 
-The picker is for trying themes. To make a choice stick, set `theme` in your config file, which lives at `~/.config/gitty/config.toml`, or at `$XDG_CONFIG_HOME/gitty/config.toml` when that variable is set:
+To set a theme permanently, set `theme` in your config file, which lives at `~/.config/gitty/config.toml`, or at `$XDG_CONFIG_HOME/gitty/config.toml` when that variable is set:
 
 ```toml
 theme = "rose-pine"
 ```
 
-The default is `theme = "auto"`. It picks a light or dark theme by the terminal background, which suits you if you switch your terminal between light and dark. Every key in the config is optional, and unknown keys and bad values are reported at startup and fall back to the default. If you misspell a theme name, expect a startup message and the default instead of a crash.
+The default is `theme = "auto"`. It picks a light or dark theme by the terminal background, which suits you if you switch your terminal between light and dark. Every key in the config is optional, and unknown keys and bad values are reported at startup and fall back to the default.
 
-Colors are truecolor where the terminal supports it and the nearest xterm-256 entry elsewhere, so a theme still works on a terminal with fewer colors.
+Colors are truecolor where the terminal supports it and the nearest xterm-256 entry elsewhere, so the same theme appears on a 256-color terminal with the nearest colors.
 
 ## Write your own theme
 
@@ -58,22 +57,28 @@ inherit = "github-dark"
 accent = "#ff79c6"
 ```
 
-Save it as `~/.config/gitty/themes/mine.toml` and set `theme = "mine"` in your config. The `theme` setting takes a theme name, so a file's name is what you put there.
+Save it as `~/.config/gitty/themes/mine.toml` and set `theme = "mine"` in your config. The file name without `.toml` is the name you give to `theme`.
+
+The example has three parts. `inherit = "github-dark"` layers the file over the built-in `github-dark`. The `[palette]` table holds the colors, and `accent = "#ff79c6"` is written as a quoted hex string. Only the accent differs from `github-dark`, so everything else keeps the inherited value, and a theme like this is three lines instead of a full palette.
 
 ### Palette keys
 
 Eleven palette keys are required: `bg`, `fg`, `muted`, `accent`, `border`, `red`, `green`, `yellow`, `blue`, `magenta` and `cyan`. Two are optional: `panel` and `orange`.
 
-If you do not use `inherit`, the file has to supply all eleven required keys. With `inherit = "<theme>"`, your file is layered over another theme, which is why a personal theme is usually two or three lines. The `emph_alpha` setting in the config, from 0.0 to 1.0, sets the strength of the changed-word highlight, and by default it follows the theme.
+The themes page marks the first eleven as required. With `inherit = "<theme>"`, your file is layered over another theme, which is why a personal theme is usually two or three lines. The `emph_alpha` setting in the config, from 0.0 to 1.0, sets the strength of the changed-word highlight, and by default it follows the theme.
+
+## Choosing between auto and a fixed theme
+
+With `theme = "auto"`, gitty follows the terminal background and picks a light or dark theme. A fixed name pins the choice. To get a specific palette such as `tokyo-night` or `gruvbox-dark`, name it. Your own themes work the same way, because `theme` takes a theme name.
+
+## Pick a theme at launch
+
+The installation page shows a command-line form: `gitty --theme dracula` starts gitty with that theme.
 
 ## If the theme does not apply
 
 The config page says unknown keys and bad values are reported at startup and fall back to the default. Read that startup report first, and check the theme file path against `~/.config/gitty/themes/<name>.toml`.
 
-## Other settings that change how a diff looks
-
-Three more config keys shape the diff. `tab_size` defaults to `4` and takes 1 to 16. `diff_algorithm` is `myers` or `histogram`. `whitespace` is `show`, `ignore-all` or `ignore-amount`, and `w` changes it while you read.
-
 ## More
 
-Themes are documented on the [themes page](/docs/themes/), with the config keys on the [configuration page](/docs/configuration/). For other ways to personalize gitty, [the keybindings page](/docs/keys/) explains rebinding. [What is a git TUI?](/blog/what-is-a-git-tui/) and [Best git TUI clients](/blog/best-git-tui-clients/) place gitty among other terminal tools.
+The [themes page](/docs/themes/) is the reference for names and palette keys, and the [configuration page](/docs/configuration/) lists the config keys. [What is a git TUI?](/blog/what-is-a-git-tui/) places gitty among other terminal tools.
