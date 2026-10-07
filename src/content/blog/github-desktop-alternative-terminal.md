@@ -37,7 +37,7 @@ The window has a **History** tab (`2`) and a **Changes** tab (`1`), and `Tab` mo
 
 ## What is different
 
-gitty runs in a terminal, so it can sit next to your editor in a split or a second tab. It is keyboard-first, with every key rebindable. It runs on macOS and Linux, and it runs `git` for everything that writes to the repository, so your hooks, signing, credential helpers and config apply. It reads history with gitoxide. It also adds `/` for searching the whole history and `b` for comparing HEAD with a branch. See [Using gitty](/docs/using-gitty/) and [Keys](/docs/keys/), and [Use a git TUI over SSH](/blog/git-tui-over-ssh/) for remote work.
+gitty runs in a terminal, so it can sit next to your editor in a split or a second tab. It is keyboard-first, with every key rebindable. It runs on macOS and Linux, and it runs `git` for everything that writes to the repository, so your hooks, signing, credential helpers and config apply. It reads history with gitoxide. It has `/` for searching the whole history and `b` for comparing HEAD with a branch. See [Using gitty](/docs/using-gitty/) and [Keys](/docs/keys/), and [Use a git TUI over SSH](/blog/git-tui-over-ssh/) for remote work.
 
 gitty is not a GitHub product, and nothing on this page is endorsed by GitHub.
 

@@ -51,5 +51,5 @@ gitty needs `git` 2.30 or newer on your `PATH` and a terminal with mouse reporti
 ## Which should you pick?
 
 - If you want a keyboard-only tool with stashing and submodule support, or you work on Windows, try gitui.
-- If you want History and Changes as two tabs, with mouse support and the option to select a range of commits or lines, on macOS or Linux, try gitty.
+- If you want History and Changes as two tabs, with mouse support and a `V` range select for commits, on macOS or Linux, try gitty.
 - Both can be installed with `cargo install`, so trying each on the same repository is straightforward.

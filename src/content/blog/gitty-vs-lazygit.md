@@ -41,7 +41,7 @@ On the git side, gitty runs `git` for everything that writes to the repository a
 
 ## Where they overlap
 
-Both projects let you stage individual lines instead of whole files, both are installable with Homebrew, and both are released under the MIT license. Both are also built to be left open next to an editor, so the practical question is which interface you want to look at while you work.
+Both projects let you stage individual lines instead of whole files, both are installable with Homebrew, and both are released under the MIT license. The practical question is which interface you want to look at while you work.
 
 One setup difference is worth knowing before you install. lazygit's README lists `go install` as one route, and gitty's lists `cargo install --locked gitty-cli`, which needs Rust 1.90 or newer and a C compiler. Most people will use the Homebrew formula or a prebuilt binary instead, which needs neither toolchain. gitty also expects `git` 2.30 or newer on your `PATH` and a terminal with mouse reporting.
 
