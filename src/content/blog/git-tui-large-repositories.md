@@ -20,7 +20,7 @@ Status is the other thing gitty tunes for. It sets the untracked cache and, wher
 When a repository has at least 10,000 commits or 20,000 index entries, gitty tunes git once, in the background. It does this unless you set `auto_tune = false` in your config. The tuning does two things:
 
 - It writes a commit-graph with `git commit-graph write --reachable --changed-paths --split`. It skips this when `core.commitGraph` is off or the clone is shallow.
-- It sets `core.untrackedCache`. It also sets `core.fsmonitor`, but only where your git has the builtin fsmonitor daemon. That means macOS and Windows builds, and most Linux packages do not have it. Both are for faster status, and gitty never overwrites a key you have already set.
+- It sets `core.untrackedCache`. It also sets `core.fsmonitor`, but only where your git has the builtin fsmonitor daemon. That daemon is in macOS and Windows builds of git, and most Linux packages do not have it. Both settings are for faster status, and gitty never overwrites a key you have already set.
 
 The keys gitty sets are recorded in `gitty.tuned`. If you want them gone, `gitty untune [PATH]` unsets exactly those keys, skips any you have since changed, and leaves everything else alone.
 
@@ -46,8 +46,8 @@ Work through this checklist:
 
 1. **Check the thresholds.** Auto-tuning starts at 10,000 commits or 20,000 index entries. A smaller repository will not be tuned, which also means it will not have been given a commit-graph by gitty.
 2. **Check that `auto_tune` is not false.** It defaults to `true`, but a `false` in `~/.config/gitty/config.toml` turns tuning off.
-3. **Check that the commit-graph exists.** gitty skips writing one when `core.commitGraph` is off or the clone is shallow. In both cases, history walks fall back to decoding from the object database.
+3. **Check that the commit-graph exists.** gitty skips writing one when `core.commitGraph` is off or the clone is shallow. If the repository has no commit-graph, the walk falls back to decoding from the object database.
 4. **Check for a cold cache.** The first run after other heavy disk activity is slower than later runs, as the benchmark notes show.
-5. **On Linux, check the inotify limit.** If a repository has more directories than `fs.inotify.max_user_watches` allows, gitty opens it with a notice and refreshes when the terminal regains focus, rather than live. This affects the Changes view, not history.
+5. **On Linux, check the inotify limit.** If a repository has more directories than `fs.inotify.max_user_watches` allows, gitty opens it with a notice and refreshes when the terminal regains focus, rather than live.
 
 The [configuration page](/docs/configuration/) lists `auto_tune` and every other key, and describes `gitty untune`.

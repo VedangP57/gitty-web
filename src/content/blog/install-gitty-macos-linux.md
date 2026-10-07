@@ -13,7 +13,7 @@ This guide covers each method, how to confirm the install worked, and where to g
 
 ## What you need first
 
-gitty runs on macOS, on Apple Silicon or Intel, and on Linux, on x86_64 or arm64. It does not run on other platforms.
+gitty runs on macOS, on Apple Silicon or Intel, and on Linux, on x86_64 or arm64. gitty is built for macOS and Linux.
 
 Three requirements apply regardless of how you install:
 
