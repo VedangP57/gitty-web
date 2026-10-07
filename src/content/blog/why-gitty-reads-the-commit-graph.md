@@ -7,7 +7,7 @@ tags: ["commit-graph", "performance", "git internals"]
 order: 18
 ---
 
-On git/git, gitty's full history walk over the current branch and its upstream took 24.8 ms with a commit-graph and 721 ms without one. That is the baseline in gitty's `bench/README.md`, measured on 2026-10-02 on Apple Silicon running macOS, with a load average of about 28, which the notes call a noisy machine. This post explains what the file is, shows the figures from that baseline, and lists the limits that come with them.
+On git/git, gitty's full history walk over the current branch and its upstream took 24.8 ms with a commit-graph and 721 ms without one. That is the baseline in gitty's `bench/README.md`, measured on 2026-10-02 on Apple Silicon running macOS, with a load average of about 28, which the notes call a noisy machine.
 
 ## What the commit-graph file holds
 
@@ -36,13 +36,13 @@ The kernel benchmark uses a blobless clone with 1,484,291 commits and 945 refs, 
 
 ## Repositories without a graph
 
-When there is no commit-graph, the notes say the walk falls back to decoding from the object database. They give 1.4 s for a full all-refs walk on git/git. They also say gitty writes a commit-graph automatically on large repositories. The README sets the threshold: at least 10,000 commits or 20,000 index entries. It writes the graph with `git commit-graph write --reachable --changed-paths --split`.
+When there is no commit-graph, the notes say the walk falls back to decoding from the object database. They give 1.4 s for a full all-refs walk on git/git. They also say gitty writes a commit-graph automatically on large repositories. The README sets the threshold: at least 10,000 commits or 20,000 index entries. It writes the graph with `git commit-graph write --reachable --changed-paths --split`, unless `auto_tune = false`, `core.commitGraph` is off, or the clone is shallow.
 
-Writing the graph costs time once. On git/git, `git commit-graph write --reachable --changed-paths` took 6.3 s. It runs on a maintenance thread, so the UI and the writer thread do not wait for it. That measurement is from the benchmark's network section, dated 2026-10-04.
+Writing the graph takes time. On git/git, `git commit-graph write --reachable --changed-paths` took 6.3 s. It runs on a maintenance thread, so the UI and the writer thread do not wait for it. That measurement is from the benchmark's network section, dated 2026-10-04.
 
 ## Limits of these figures
 
-- **Machine.** All of it was measured on Apple Silicon running macOS. The first baseline ran on a loaded machine.
+- **Machine.** The README's performance section says the measurements are from Apple Silicon (macOS). The first baseline ran on a loaded machine.
 - **Cache.** The README's performance table is for a warm cache. On a cold page cache, the first kernel run after other I/O spent about 0.8–1.0 s in the refs step. That step is separate from the walk.
 - **Scope.** The 24.8 ms and 721 ms figures are for the branch and upstream scope on git/git. The all-refs walk is a different row in the table.
 - **Budgets.** `bench/run.sh` checks the walk budgets only when the walk uses a commit-graph.

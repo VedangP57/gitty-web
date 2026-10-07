@@ -7,7 +7,7 @@ tags: ["benchmarking", "testing", "tui"]
 order: 20
 ---
 
-gitty's terminal UI is measured by running the real binary inside a pseudo-terminal, reading the screen it produces through a `pyte` terminal emulator, and recording timestamps for the events inside it. Separately, a script, `bench/run.sh`, checks latency budgets and exits non-zero when one is missed. This post describes each piece as `bench/README.md` and the source record them, and how to run the parts yourself.
+gitty's terminal UI is measured by running the real binary inside a pseudo-terminal, reading the screen it produces through a `pyte` terminal emulator, and recording timestamps for the events inside it. Separately, a script, `bench/run.sh`, checks latency budgets and exits non-zero when one is missed.
 
 ## What is measured, and at which layer
 
@@ -39,19 +39,19 @@ The screen emulator tells you what is on screen. To see when things happened ins
     }
 ```
 
-The event loop calls it for each draw, with how long the draw took, and for each message it handles. The notes say these timestamps, together with the emulator, supplied the first-frame and history-walk milestones. The clock starts at the `Instant` shown above.
+The event loop calls it for each draw, with how long the draw took, and for each message it handles. The notes say the end-to-end figures were measured with the emulator plus these timestamps. The clock starts at the `Instant` shown above.
 
 For timing individual worker requests apart from the UI, the notes point to `cargo run --release -p gitty-cli --example trace -- <repo>`, which "times each worker request in isolation".
 
 ## Budgets that fail the run
 
-The budgets come from the project's spec, and the README lists them next to the measured values, for example under 16 ms for the first frame and under 400 ms for the kernel's full history walk. `bench/run.sh` turns a budget into a pass or a failure. It passes `--check` to the probe, and each budget prints `budget <what>: <measured> < <budget> ok|MISSED`. The script exits 1 when any budget is missed, and the probe itself exits 2. Setting `GITTY_BUDGET_SCALE=0.0001` forces a miss, which is how the notes say the failure path was proved.
+The budgets come from the project's spec, and the README lists them next to the measured values. `bench/run.sh` turns the core-library budgets into a pass or a failure. The probe's checks are walk, files, diffs, ab and status, with abrefs for the blobless repository. The kernel walk is checked when the repository is passed as `BLOBLESS=<repo>`. The first-frame budget is not one of them: that figure comes from the `pyte` harness, which the script does not run. It passes `--check` to the probe, and each budget prints `budget <what>: <measured> < <budget> ok|MISSED`. The script exits 1 when any budget is missed, and the probe itself exits 2. Setting `GITTY_BUDGET_SCALE=0.0001` forces a miss, which is how the notes say the failure path was proved.
 
-Two rules keep the checks honest. The script runs a warm-up walk first, because the budgets are for a warm cache. And walk budgets are checked only when the walk uses a commit-graph, which gitty writes on large repositories. In the notes, the no-graph figures are marked "not checked".
+Two rules apply to the checks. The script runs a warm-up walk first, because the budgets are for a warm cache. And walk budgets are checked only when the walk uses a commit-graph, which gitty writes on large repositories. In the notes, the no-graph figures are marked "not checked".
 
 ## Running it yourself
 
-From a checkout of gitty, run `bench/run.sh <repo>...` with one or more repositories. Add `BLOBLESS=<repo>` for history-only checks on a blobless clone, where diffs cannot load. The script ends with "All budgets met." or exits 1 and says which were missed. The figures on this site came from Apple Silicon running macOS, so a different machine will give different numbers.
+From a checkout of gitty, run `bench/run.sh <repo>...` with one or more repositories. Add `BLOBLESS=<repo>` for history-only checks on a blobless clone, where diffs cannot load. The script ends with "All budgets met." or exits 1 and says which were missed. The `pyte` driver used for the end-to-end figures is not part of the repository, so those figures cannot be reproduced from it. The criterion benches (`cargo bench -p gitty-cli --bench frame` and `GITTY_BENCH_REPO=<repo> cargo bench -p gitty-core`) and `--example trace` are. The README's performance section says its figures are from Apple Silicon (macOS), so a different machine will give different numbers.
 
 If you want to see what the kernel run looks like in practice, read [How a Rust TUI draws its first frame in 14 ms](/blog/first-frame-14-ms/), and for another measured result, [The lock that starved the UI thread for about 350 ms](/blog/the-lock-that-froze-the-ui/). The [installation page](/docs/installation/) covers getting gitty itself.
 

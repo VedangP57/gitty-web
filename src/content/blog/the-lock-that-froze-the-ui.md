@@ -7,7 +7,7 @@ tags: ["concurrency", "rust", "bug"]
 order: 19
 ---
 
-While gitty's end-to-end benchmark was being measured, the history walker was found holding the history write lock for the whole walk. That starved the UI thread for the length of the walk, about 350 ms on the Linux kernel. The walker now walks into a private chunk and takes the lock only to publish it, and a regression test, `walk_never_starves_readers`, checks that a reader never waits long. This post walks through that bug and its fix using gitty's `bench/README.md` and source.
+While gitty's end-to-end benchmark was being measured, the history walker was found holding the history write lock for the whole walk. That starved the UI thread for the length of the walk, about 350 ms on the Linux kernel. The walker now walks into a private chunk and takes the lock only to publish it, and a regression test, `walk_never_starves_readers`, checks that a reader never waits long.
 
 ## How the history is shared
 
@@ -19,7 +19,7 @@ That is the shape of the problem. The walker is the writer, and the UI thread is
 
 The "TUI end to end" section of `bench/README.md` records the finding under "Fixed during measurement": the walker held the history write lock while walking, which starved the UI thread for the length of the walk. The note gives about 350 ms on the kernel. The figure comes from the benchmark's kernel repository, a blobless clone with 1,484,291 commits, measured on 2026-10-04 in a release build.
 
-The changelog has no entry for it. The same section's table lists the full history walk on the kernel at 263 ms. The notes do not reconcile that figure with the 350 ms.
+The changelog has no entry for it. The same section's table lists a separate measurement, the full history walk on the kernel at 263 ms.
 
 ## The fix
 
@@ -48,9 +48,7 @@ The chunk sizes are constants. The first chunk is 256 entries and later ones are
 
 The test measures how long a reader waits for the lock while a walk is running. It does not time the walk. Its failure message reads "a reader waited ... for the history lock", and the comment above the test says the UI thread reads the shared history while the walker runs and must never wait long.
 
-## What the sources show
-
-The benchmark notes record that the walker held the write lock while walking and that the UI thread was starved for the length of the walk, about 350 ms on the kernel. The code now publishes each chunk under a short lock, and the test asserts a worst-case wait under 5 ms with 30,000 commits.
+The benchmark notes and the test are the record of the bug; the changelog does not mention it.
 
 Related reading: [How a Rust TUI draws its first frame in 14 ms](/blog/first-frame-14-ms/) covers the streaming design this fix belongs to, and [Why gitty reads the commit-graph](/blog/why-gitty-reads-the-commit-graph/) covers the walk itself. The [using gitty page](/docs/using-gitty/) describes the History tab.
 
