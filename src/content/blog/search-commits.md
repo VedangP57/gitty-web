@@ -13,43 +13,41 @@ Press `/` in gitty, type your query and press `Enter`. gitty searches the whole 
 
 ## What you can search for
 
-The search bar takes plain text, an `author:` filter or a `path:` filter:
+The search bar takes plain words, an author's name, or a `path:` filter:
 
-- Plain text for words you remember from a commit.
-- `author:` for commits by a particular person.
-- `path:` for commits that touched a file or directory.
+- Plain words for text you remember from a commit.
+- An author's name or email address, for commits by a particular person.
+- `path:` followed by a file or directory, for commits that touched it.
 
-The keybindings page summarizes the key as "search history (text, `path:`)", and [Using gitty](/docs/using-gitty/) adds the `author:` filter. The README's key table writes the path form as `path:dir`, so a directory is a valid value.
+The keybindings page summarizes the key as "search history (text, `path:`)", and the README's key table writes the path form as `path:dir`, so a directory is a valid value. Both [Using gitty](/docs/using-gitty/) and the README describe search by text, author or path. In gitty's source, plain words are matched against each commit's summary, author name and author email. A query made only of lowercase letters ignores case, and a query with an uppercase letter matches case exactly.
+
+A `path:` value is matched literally, with no globs. Put it in double quotes if it contains a space, as in `path:"docs/my notes"`. You can combine words and a path in one query, for example `retry path:src`.
 
 ## Steps
 
 1. Press `2` to open the History tab.
 2. Press `/` to open the search bar.
-3. Type a query, such as `retry`, `author:alice` or `path:src`.
+3. Type a query, such as `retry`, an author's name, or `path:src`.
 4. Press `Enter` to run it. Matches are found across the whole history, not only the rows on screen. `Esc` closes the bar without running the query.
 5. Press `n` to go to the next match and `N` to go to the previous one.
 6. Read the files and diff of the commit you land on in the panes beside the list.
-7. Press `Esc` to end the search. The docs list `Esc` as the key that ends a range, search or compare.
+7. Press `Esc` to end the search.
 
-What you should see: the first match is selected, and `n` and `N` step through the rest.
+What you should see: a match is selected, and `n` and `N` step through the rest.
 
 ## The list is not filtered
 
-The list itself stays unfiltered. Search moves you between matches in the full history and does not hide every commit that does not match. After you jump to a match, the commits around it are still there, so you can scroll up and down to see what happened before and after the change you found. Press `g` for the first row or `G` for the last, and `Ctrl-d` and `Ctrl-u` move by half a page.
-
-## Which commit you land on
-
-A search moves the selection to a match, and the panes beside the list show that commit's files and diff. `n` and `N` then move you to the next and previous match, and the same two keys serve text, `author:` and `path:` queries.
+The list itself stays unfiltered. Search moves you between matches in the full history and does not hide every commit that does not match. The commits around a match are still there, so you can scroll up and down from it. Press `g` for the first row or `G` for the last, and `Ctrl-d` and `Ctrl-u` move by half a page.
 
 ## You can keep working
 
 The README says search runs while you keep working, and its performance table adds that the UI never waits. The benchmark records one 20,000-row chunk of the Linux kernel history taking 337 ms on one of two search threads. A search of a very large repository is more work than drawing the visible rows, so gitty does it on background threads instead of making you wait with an empty screen.
 
-Running a new query replaces the previous search.
+Running a new query replaces the previous search. A `path:` lookup asks git for the commits that touch the path, and gitty's source notes that on a huge history without changed-path filters this can take many seconds, which is why a newer search cancels it instead of waiting.
 
-## Leaving search, range and compare
+## Leaving search
 
-Search, a commit range and a compare are three modes you can be in on the History tab, and `Esc` ends each of them. That one key is all you need to remember for getting back to the plain list. `V` starts a range from the commit a search has landed you on, and `b` compares `HEAD` with a branch. `D` changes the date format if you want to scan results by absolute date, and `o` expands the commit header when a match needs more context.
+`Esc` ends a search, and the docs list it as the key that ends a range, search or compare.
 
 ## Rebind the search keys
 

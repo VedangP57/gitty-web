@@ -19,11 +19,11 @@ All three work in the Changes tab, which you open with `1`:
 - `A` amends the last commit.
 - `u` undoes the last commit, and the docs say it does so while the commit is still `HEAD`.
 
-The phrase "while it is still `HEAD`" is the limit to remember. Undo is for the commit at the tip of your current branch. Amend is described as acting on the last commit as well.
+The phrase "while it is still `HEAD`" is the limit to remember. In gitty's behavior, undo is offered for a commit you made in this gitty session, and it is not offered once the upstream's tip is that commit. If you press `u` when nothing can be undone, gitty says that only a commit made in gitty can be undone.
 
 ## Choose between them
 
-Ask what is wrong with the commit. If its content or message is nearly right, amend it with `A`. If you want the commit gone, undo it with `u`. Both are in the Changes tab, so you do not leave the screen you committed from. The commit box you open with `c` is the same box in both cases, and gitty's changelog notes that it supports co-authors.
+Ask what is wrong with the commit. If its content or message is nearly right, amend it with `A`. If you want the commit gone, undo it with `u`. Both are in the Changes tab, so you do not leave the screen you committed from. gitty's changelog notes that the commit box supports co-authors.
 
 ## Commit first
 
@@ -37,21 +37,18 @@ Amend suits a commit that is right but incomplete, for example when you forgot a
 
 1. Press `1` to open the Changes tab.
 2. Stage what belongs in the commit. `Space` stages a file or line, `H` a hunk and `a` everything.
-3. Press `A` to amend the last commit.
+3. Press `A`. This switches the commit box to amend mode and loads the last commit's message into it.
+4. Edit the message if you want, and commit from the box as you would normally.
 
-What you should see: check the History tab, which you open with `2`, to see the result. [How to stage a single line in a git TUI](/blog/stage-a-single-line/) covers the staging keys in detail.
+What you should see: the last commit's message appears in the box, and the amend lands when you commit from it. Pressing `A` again leaves amend mode and restores what you had typed. Check the History tab, which you open with `2`, afterwards. [How to stage a single line in a git TUI](/blog/stage-a-single-line/) covers the staging keys in detail.
 
 ## Undo the commit
 
 1. Press `1` to open the Changes tab.
-2. Check that the commit you want to remove is the most recent one on your branch. The History tab, opened with `2`, shows the commit list.
+2. Check that the commit you want to remove is the one you just made in this session and is still the most recent on your branch. The History tab, opened with `2`, shows the commit list.
 3. Press `u`.
 
 What you should see: the commit is undone. The documentation says what the key does and when it applies, and it does not describe how your file changes are left, so check the History tab and the Changes tab afterwards.
-
-## Two situations
-
-You committed and then noticed a file missing. Stage the file and amend with `A`, because the commit itself is right and only needs the file. You committed on the wrong branch, or the commit should not exist yet. Undo with `u` while the commit is still `HEAD`, then look at the Changes tab to see what is left to work with.
 
 ## What happens around a commit
 
@@ -59,7 +56,7 @@ gitty runs `git` for everything that writes to the repository, so hooks, signing
 
 ## If undo does nothing
 
-The docs tie `u` to the commit still being `HEAD`, so check that the commit you want is the last one on your branch. Press `?` for the list of keys, and `!` for the details of the last error.
+The docs tie `u` to the commit still being `HEAD`, and gitty only offers it for a commit made in gitty that the upstream does not yet have. Check that the commit you want is the last one on your branch. Press `?` for the list of keys, and `!` for the details of the last error.
 
 ## Related reading
 

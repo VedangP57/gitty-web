@@ -37,7 +37,7 @@ The ahead and behind count is the heavy part of a comparison on a big repository
 
 ## Compare or change the scope
 
-The History tab has a second way to bring `main` into view. `r` switches the list between the current branch plus its upstream and every ref, so `main` and your branch appear in one list with their refs. Use that when you want to see where the branches split in the commit list. Use `b` when you want the behind and ahead counts and the files that differ, without scanning the list for them.
+Outside compare, the History tab has `r`, which switches the list between the current branch plus its upstream and every ref. That shows refs side by side in the commit list. Use `b` when you want the behind and ahead counts and the files that differ. While compare is open, the History-only keys such as `/`, `n`, `N`, `V` and `r` do nothing, because compare shows its own lists; press `Esc` first to get them back.
 
 ## Rebind it
 

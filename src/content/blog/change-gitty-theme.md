@@ -7,7 +7,7 @@ tags: ["themes", "configuration", "customization"]
 order: 16
 ---
 
-Press `T` in gitty for a theme picker with a live preview. To set a theme permanently, set `theme` in `~/.config/gitty/config.toml`.
+Press `T` in gitty for a theme picker with a live preview, and press `Enter` on a theme to save the choice as your `theme` setting. You can also set `theme` yourself in `~/.config/gitty/config.toml`.
 
 **What you need:** gitty installed and a terminal you can open it in.
 
@@ -34,7 +34,7 @@ The README says they reproduce the palettes of Catppuccin, Dracula, GitHub, Gruv
 
 ## Keep a theme in the config
 
-To set a theme permanently, set `theme` in your config file, which lives at `~/.config/gitty/config.toml`, or at `$XDG_CONFIG_HOME/gitty/config.toml` when that variable is set:
+The picker's `Enter` saves your choice as the `theme` setting. To set it by hand, edit the config file, which lives at `~/.config/gitty/config.toml`, or at `$XDG_CONFIG_HOME/gitty/config.toml` when that variable is set:
 
 ```toml
 theme = "rose-pine"
