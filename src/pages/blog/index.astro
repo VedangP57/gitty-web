@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/blog.css';
+import { getPosts, kindLabel, formatDate } from '../../lib/blog';
+
+const posts = await getPosts();
+const origin = String(new URL('/', Astro.site));
+const title = 'gitty blog: git TUI guides and engineering notes';
+const description =
+  'Guides, comparisons and engineering notes about gitty, a fast git TUI written in Rust.';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'gitty blog',
+  url: `${origin}blog/`,
+  description,
+  inLanguage: 'en',
+  blogPost: posts.map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    url: `${origin}blog/${p.id}/`,
+    datePublished: p.data.date.toISOString(),
+  })),
+};
+---
+
+<Base title={title} description={description} path="/blog/" jsonLd={jsonLd}>
+  <section class="blog-hd">
+    <div class="shell">
+      <h1>Blog</h1>
+      <p>Guides, comparisons and engineering notes about gitty and working with git in a terminal.</p>
+    </div>
+  </section>
+  <section class="shell">
+    <ul class="post-list">
+      {
+        posts.map((p) => (
+          <li>
+            <a href={`/blog/${p.id}/`}>
+              <span class="post-meta">
+                {kindLabel[p.data.kind]}
+                <br />
+                <time datetime={p.data.date.toISOString()}>{formatDate(p.data.date)}</time>
+              </span>
+              <span>
+                <h2>{p.data.title}</h2>
+                <p>{p.data.description}</p>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

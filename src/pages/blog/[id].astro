@@ -1,0 +1,91 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Install from '../../components/Install.astro';
+import '../../styles/blog.css';
+import { getPosts, kindLabel, formatDate, readingMinutes, related } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const posts = await getPosts();
+const { Content } = await render(post);
+const more = related(post, posts);
+
+const origin = String(new URL('/', Astro.site));
+const url = `${origin}blog/${post.id}/`;
+const title = `${post.data.title} | gitty`;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.date.toISOString(),
+    dateModified: (post.data.updated ?? post.data.date).toISOString(),
+    author: { '@type': 'Person', name: 'Vedang Patel' },
+    publisher: { '@type': 'Organization', name: 'gitty', url: origin },
+    mainEntityOfPage: url,
+    image: String(new URL('/og.png', Astro.site)),
+    inLanguage: 'en',
+    keywords: post.data.tags.join(', '),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'gitty', item: origin },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${origin}blog/` },
+      { '@type': 'ListItem', position: 3, name: post.data.title, item: url },
+    ],
+  },
+];
+---
+
+<Base
+  title={title}
+  description={post.data.description}
+  path={`/blog/${post.id}/`}
+  ogType="article"
+  jsonLd={jsonLd}
+  publishedTime={post.data.date}
+  modifiedTime={post.data.updated ?? post.data.date}
+>
+  <article class="shell post">
+    <header class="post-head">
+      <p class="post-crumbs"><a href="/blog/">Blog</a></p>
+      <h1>{post.data.title}</h1>
+      <p class="post-by">
+        {kindLabel[post.data.kind]}, by Vedang Patel on
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>.
+        {readingMinutes(post.body)} min read.
+      </p>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <aside class="post-cta">
+      <h2>Try gitty</h2>
+      <p>One command on macOS or Linux. Your git config and hooks keep working.</p>
+      <Install cmd="brew install vedangp57/tap/gitty" />
+    </aside>
+    {
+      more.length > 0 && (
+        <aside class="related">
+          <h2>More from the blog</h2>
+          <ul>
+            {more.map((p) => (
+              <li>
+                <a href={`/blog/${p.id}/`}>{p.data.title}</a>
+                <span>{kindLabel[p.data.kind]}</span>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )
+    }
+  </article>
+</Base>

@@ -11,6 +11,12 @@ const site = process.env.SITE_URL ?? 'https://gitty.runs-on.dev';
 export default defineConfig({
   site,
   trailingSlash: 'ignore',
+  markdown: {
+    shikiConfig: {
+      themes: { light: 'github-light', dark: 'github-dark' },
+      defaultColor: false,
+    },
+  },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     starlight({
@@ -50,7 +56,6 @@ export default defineConfig({
     }),
     solid({ include: ['**/*.tsx', '**/*.jsx'] }),
     sitemap({
-      lastmod: new Date(),
       filter: (page) => {
         const path = new URL(page).pathname;
         return path !== '/og' && path !== '/og/' && path !== '/icon' && path !== '/icon/' && !path.includes('/404');
