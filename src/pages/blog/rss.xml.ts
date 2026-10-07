@@ -15,7 +15,9 @@ export async function GET(context: APIContext) {
       pubDate: p.data.date,
       link: `/blog/${p.id}/`,
       categories: p.data.tags,
+      customData: "<dc:creator>Vedang Patel</dc:creator>",
     })),
+    xmlns: { dc: "http://purl.org/dc/elements/1.1/" },
     customData: "<language>en-us</language>",
   });
 }
