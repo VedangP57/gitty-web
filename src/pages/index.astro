@@ -1,8 +1,7 @@
 ---
+import Base from '../layouts/Base.astro';
 import Install from '../components/Install.astro';
 import GittyMock from '../components/GittyMock';
-import '../styles/tokens.css';
-import '../styles/landing.css';
 import '../styles/mock.css';
 
 const title = 'gitty — a fast terminal git client in Rust';
@@ -44,7 +43,6 @@ const features = [
   },
 ];
 
-
 const origin = String(new URL('/', Astro.site));
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -83,184 +81,75 @@ const jsonLd = {
 };
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={new URL('/', Astro.site)} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="/icon-180.png" sizes="180x180" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="gitty" />
-    <meta name="theme-color" content="#131017" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="gitty" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={new URL('/', Astro.site)} />
-    <meta property="og:image" content={new URL('/og.png', Astro.site)} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="gitty — your repo, live. Leave it open." />
-    <meta property="og:image:type" content="image/png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/og.png', Astro.site)} />
-    <meta name="twitter:image:alt" content="gitty — your repo, live. Leave it open." />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-    <meta name="author" content="Vedang Patel" />
-    <meta name="google-site-verification" content="LpVoH1Y5hMBVk3yGmP-Irq2sK9VKhvqWNJv4dcj8Luw" />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-    <script src="/sw-register.js" defer></script>
-    <script is:inline>
-      (() => {
-        // Same key as Starlight docs so both pages always agree.
-        // Starlight stores '' for its "System" choice — treat that as unset.
-        const saved =
-          (localStorage.getItem('starlight-theme') || localStorage.getItem('gitty-theme')) ||
-          null;
-        const prefersLight = matchMedia('(prefers-color-scheme: light)').matches;
-        document.documentElement.dataset.theme = saved === 'light' || saved === 'dark'
-          ? saved
-          : prefersLight
-            ? 'light'
-            : 'dark';
-      })();
-    </script>
-  </head>
-  <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="hd-nav">
-      <div class="shell">
-        <a class="wordmark" href="/">gitty</a>
-        <nav aria-label="Primary">
-          <a href="/docs/installation/">Docs</a>
-          <a href="/docs/themes/">Themes</a>
-          <a href="/docs/keys/">Keys</a>
-          <a href="https://github.com/VedangP57/gitty/releases">Releases</a>
-        </nav>
-        <div class="right">
-          <button class="theme-toggle" type="button" data-theme-toggle>
-            <span data-theme-label>Dark</span>
-          </button>
-          <a class="gh" href="https://github.com/VedangP57/gitty">GitHub</a>
+<Base title={title} description={description} path="/" jsonLd={jsonLd}>
+  <section class="hd-hero">
+    <div class="shell">
+      <h1>Your repo, live.<br />Leave it open.</h1>
+      <div class="hero-side">
+        <p class="lede">
+          A fast git TUI with the GitHub Desktop experience. History, line staging, fetch, push and
+          search, written in Rust.
+        </p>
+        <Install cmd="brew install vedangp57/tap/gitty" />
+        <div class="hero-meta">Runs on macOS and Linux with git 2.30 or newer.</div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/docs/installation/">Read the docs</a>
+          <a class="btn" href="https://github.com/VedangP57/gitty/releases">Releases</a>
         </div>
       </div>
-    </header>
+    </div>
+  </section>
 
-    <main id="main">
-      <section class="hd-hero">
-        <div class="shell">
-          <h1>Your repo, live.<br />Leave it open.</h1>
-          <div class="hero-side">
-          <p class="lede">
-            A fast terminal git client with the GitHub Desktop experience. History, line staging,
-            fetch, push and search, written in Rust.
-          </p>
-          <Install cmd="brew install vedangp57/tap/gitty" />
-          <div class="hero-meta">
-            Runs on macOS and Linux with git 2.30 or newer.
-          </div>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="/docs/installation/">Read the docs</a>
-            <a class="btn" href="https://github.com/VedangP57/gitty/releases">Releases</a>
-          </div>
-          </div>
+  <section class="proof" aria-label="highlights">
+    <div class="shell proof-grid">
+      <p><b>14 ms</b> to first frame on git/git</p>
+      <p><b>1.48M</b> commits walked in a kernel clone</p>
+      <p><b>11</b> built-in themes, switched live</p>
+      <p><b>MIT</b> licensed, no telemetry</p>
+    </div>
+  </section>
+
+  <section class="fig fig--demo">
+    <div class="shell">
+      <div class="fighd">
+        <h2>Click it. It behaves like gitty.</h2>
+      </div>
+      <GittyMock client:visible />
+    </div>
+  </section>
+
+  <section class="fig">
+    <div class="shell">
+      <div class="fighd fighd--quiet">
+        <h2>What else it does</h2>
+      </div>
+      <article class="lead">
+        <h3>{lead.title}</h3>
+        <div>
+          <p>{lead.body}</p>
+          <a class="go" href={lead.href}>{lead.go}</a>
         </div>
-      </section>
+      </article>
+      <div class="sheets">
+        {
+          features.map((f) => (
+            <article class="sheet">
+              <h3>
+                <a href={f.href}>{f.title}</a>
+              </h3>
+              <p>{f.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-      <section class="proof" aria-label="highlights">
-        <div class="shell proof-grid">
-          <p><b>14 ms</b> to first frame on git/git</p>
-          <p><b>1.48M</b> commits walked in a kernel clone</p>
-          <p><b>11</b> built-in themes, switched live</p>
-          <p><b>MIT</b> licensed, no telemetry</p>
-        </div>
-      </section>
-
-      <section class="fig fig--demo">
-        <div class="shell">
-          <div class="fighd">
-            <h2>Click it. It behaves like gitty.</h2>
-          </div>
-          <GittyMock client:visible />
-        </div>
-      </section>
-
-      <section class="fig">
-        <div class="shell">
-          <div class="fighd fighd--quiet">
-            <h2>What else it does</h2>
-          </div>
-          <article class="lead">
-            <h3>{lead.title}</h3>
-            <div>
-              <p>{lead.body}</p>
-              <a class="go" href={lead.href}>{lead.go}</a>
-            </div>
-          </article>
-          <div class="sheets">
-            {
-              features.map((f) => (
-                <article class="sheet">
-                  <h3>
-                    <a href={f.href}>{f.title}</a>
-                  </h3>
-                  <p>{f.body}</p>
-                </article>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-
-      <section class="cta">
-        <div class="shell">
-          <h2>Give your repo somewhere to live.</h2>
-          <p>One command. Your git config, hooks and credential helpers keep working as they are.</p>
-          <Install cmd="brew install vedangp57/tap/gitty" />
-        </div>
-      </section>
-    </main>
-
-    <footer class="foot shell">
-      <a class="wordmark" href="/">gitty</a>
-      <span class="ver">v0.1.2 · MIT</span>
-      <nav>
-        <a href="/docs/installation/">Docs</a>
-        <a href="https://github.com/VedangP57/gitty">GitHub</a>
-        <a href="https://github.com/VedangP57/gitty/releases">Releases</a>
-      </nav>
-      <span>built in the terminal</span>
-    </footer>
-
-    <script>
-      const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
-      const label = document.querySelector<HTMLElement>('[data-theme-label]');
-      const root = document.documentElement;
-
-      const current = () => (root.dataset.theme === 'light' ? 'light' : 'dark');
-      const paint = () => {
-        const name = current() === 'light' ? 'Light' : 'Dark';
-        if (label) label.textContent = name;
-        btn?.setAttribute('aria-label', `${name} theme. Switch color theme`);
-      };
-      paint();
-
-      btn?.addEventListener('click', () => {
-        const next = current() === 'light' ? 'dark' : 'light';
-        root.dataset.theme = next;
-        localStorage.setItem('starlight-theme', next);
-        localStorage.setItem('gitty-theme', next);
-        paint();
-      });
-    </script>
-  </body>
-</html>
+  <section class="cta">
+    <div class="shell">
+      <h2>Give your repo somewhere to live.</h2>
+      <p>One command. Your git config, hooks and credential helpers keep working as they are.</p>
+      <Install cmd="brew install vedangp57/tap/gitty" />
+    </div>
+  </section>
+</Base>

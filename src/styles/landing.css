@@ -451,3 +451,11 @@
 .skip:focus {
   top: 12px;
 }
+
+/* --- footer legal line --- */
+.foot .legal {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 13px;
+  color: var(--faint);
+}

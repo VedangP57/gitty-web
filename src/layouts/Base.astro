@@ -1,0 +1,136 @@
+---
+import '../styles/tokens.css';
+import '../styles/landing.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogType?: 'website' | 'article';
+  jsonLd?: object | object[];
+  publishedTime?: Date;
+  modifiedTime?: Date;
+}
+
+const { title, description, path, ogType = 'website', jsonLd, publishedTime, modifiedTime } = Astro.props;
+const canonical = new URL(path, Astro.site);
+const ogImage = new URL('/og.png', Astro.site);
+const imageAlt = 'gitty — your repo, live. Leave it open.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icon-180.png" sizes="180x180" />
+    <link rel="alternate" type="application/rss+xml" title="gitty blog" href="/blog/rss.xml" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="gitty" />
+    <meta name="theme-color" content="#131017" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="gitty" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:image:type" content="image/png" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="author" content="Vedang Patel" />
+    <meta name="google-site-verification" content="LpVoH1Y5hMBVk3yGmP-Irq2sK9VKhvqWNJv4dcj8Luw" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <script src="/sw-register.js" defer></script>
+    <script is:inline>
+      (() => {
+        // Same key as Starlight docs so both pages always agree.
+        // Starlight stores '' for its "System" choice — treat that as unset.
+        const saved =
+          (localStorage.getItem('starlight-theme') || localStorage.getItem('gitty-theme')) ||
+          null;
+        const prefersLight = matchMedia('(prefers-color-scheme: light)').matches;
+        document.documentElement.dataset.theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : prefersLight
+            ? 'light'
+            : 'dark';
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="hd-nav">
+      <div class="shell">
+        <a class="wordmark" href="/">gitty</a>
+        <nav aria-label="Primary">
+          <a href="/docs/installation/">Docs</a>
+          <a href="/blog/">Blog</a>
+          <a href="/docs/themes/">Themes</a>
+          <a href="/docs/keys/">Keys</a>
+          <a href="https://github.com/VedangP57/gitty/releases">Releases</a>
+        </nav>
+        <div class="right">
+          <button class="theme-toggle" type="button" data-theme-toggle>
+            <span data-theme-label>Dark</span>
+          </button>
+          <a class="gh" href="https://github.com/VedangP57/gitty">GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="foot shell">
+      <a class="wordmark" href="/">gitty</a>
+      <span class="ver">v0.1.2 · MIT</span>
+      <nav aria-label="Footer">
+        <a href="/docs/installation/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="https://github.com/VedangP57/gitty">GitHub</a>
+        <a href="https://github.com/VedangP57/gitty/releases">Releases</a>
+      </nav>
+      <span>built in the terminal</span>
+      <p class="legal">gitty is an independent project and is not affiliated with GitHub.</p>
+    </footer>
+
+    <script>
+      const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+      const label = document.querySelector<HTMLElement>('[data-theme-label]');
+      const root = document.documentElement;
+
+      const current = () => (root.dataset.theme === 'light' ? 'light' : 'dark');
+      const paint = () => {
+        const name = current() === 'light' ? 'Light' : 'Dark';
+        if (label) label.textContent = name;
+        btn?.setAttribute('aria-label', `${name} theme. Switch color theme`);
+      };
+      paint();
+
+      btn?.addEventListener('click', () => {
+        const next = current() === 'light' ? 'dark' : 'light';
+        root.dataset.theme = next;
+        localStorage.setItem('starlight-theme', next);
+        localStorage.setItem('gitty-theme', next);
+        paint();
+      });
+    </script>
+  </body>
+</html>
