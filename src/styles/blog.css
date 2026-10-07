@@ -175,14 +175,6 @@
   font-family: inherit;
 }
 
-.astro-code span {
-  color: var(--shiki-light);
-}
-
-:root[data-theme="dark"] .astro-code span {
-  color: var(--shiki-dark);
-}
-
 .prose table {
   display: block;
   max-width: 100%;

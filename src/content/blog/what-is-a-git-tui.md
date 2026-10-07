@@ -47,7 +47,7 @@ A git TUI is not the answer to every situation.
 - If you only run one or two git commands a day, the command line is already enough.
 - gitty runs on macOS and Linux. If you work on another platform, it is not an option today.
 
-It also assumes a reasonably capable terminal. gitty needs a terminal with mouse reporting, and it uses truecolor where the terminal supports it and the nearest 256-colour entry elsewhere.
+It also assumes a reasonably capable terminal. gitty needs a terminal with mouse reporting, and it uses truecolor where the terminal supports it and the nearest 256-color entry elsewhere.
 
 ## Where gitty fits
 

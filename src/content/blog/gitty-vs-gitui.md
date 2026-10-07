@@ -7,7 +7,7 @@ tags: ["gitui", "comparison", "git tui", "rust"]
 order: 8
 ---
 
-gitui and gitty are both terminal git clients written in Rust, so the language is not what separates them. The difference is the workflow each documents. gitui lists keyboard-only control, context-based help, stashing, submodule support and staging at the file, hunk and line level. gitty is organised as a History tab and a Changes tab in the manner of GitHub Desktop, and also supports the mouse. Choose by the layout you want to work in.
+gitui and gitty are both terminal git clients written in Rust, so the language is not what separates them. The difference is the workflow each documents. gitui lists keyboard-only control, context-based help, stashing, submodule support and staging at the file, hunk and line level. gitty is organized as a History tab and a Changes tab in the manner of GitHub Desktop, and also supports the mouse. Choose by the layout you want to work in.
 
 Facts about gitui come from its README on GitHub, read on 2026-10-07. Facts about gitty come from its README and documentation. gitty is written by the author of this site.
 
@@ -46,7 +46,7 @@ The mouse works throughout: click to select, scroll any pane, drag the diff gutt
 
 Both projects publish release binaries and can be installed through Cargo, and both are available from Homebrew. gitui's README lists a wider set of package managers, including Arch Linux, Fedora, MacPorts, Winget, Scoop and Nix. gitty's install routes are Homebrew, a shell installer that puts a prebuilt binary in `~/.cargo/bin`, prebuilt archives from the Releases page, and crates.io.
 
-gitty needs `git` 2.30 or newer on your `PATH` and a terminal with mouse reporting. It uses truecolor where the terminal supports it and the nearest 256-colour entry elsewhere, and ships with eleven built-in themes that you can extend with your own files under `~/.config/gitty/themes/`. Check gitui's README for its own requirements before you install it.
+gitty needs `git` 2.30 or newer on your `PATH` and a terminal with mouse reporting. It uses truecolor where the terminal supports it and the nearest 256-color entry elsewhere, and ships with eleven built-in themes that you can extend with your own files under `~/.config/gitty/themes/`. Check gitui's README for its own requirements before you install it.
 
 ## Which should you pick?
 

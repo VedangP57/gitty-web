@@ -45,10 +45,6 @@ The README says search runs while you keep working, and its performance table ad
 
 Running a new query replaces the previous search. A `path:` lookup asks git for the commits that touch the path, and gitty's source notes that on a huge history without changed-path filters this can take many seconds, which is why a newer search cancels it instead of waiting.
 
-## Leaving search
-
-`Esc` ends a search, and the docs list it as the key that ends a range, search or compare.
-
 ## Rebind the search keys
 
 If the defaults clash with your habits, rebind them in `~/.config/gitty/config.toml` under `[keys]`, using the config names `search`, `next_match` and `prev_match`. A rebound action loses its default keys, and the text input of the search bar itself is never remapped. gitty reports conflicts at startup, such as one key bound to two actions that share a screen.

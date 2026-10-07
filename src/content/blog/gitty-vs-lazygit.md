@@ -7,7 +7,7 @@ tags: ["lazygit", "comparison", "git tui"]
 order: 6
 ---
 
-gitty and lazygit are both terminal git clients, and both stage individual lines. They differ in language, in how wide a set of git operations they document, and in the layout they are built around. lazygit is written in Go and lists operations such as interactive rebase, cherry-pick and bisect. gitty is written in Rust and is organised around a History tab and a Changes tab, modelled on GitHub Desktop. Choose by the workflow you want on screen.
+gitty and lazygit are both terminal git clients, and both stage individual lines. They differ in language, in how wide a set of git operations they document, and in the layout they are built around. lazygit is written in Go and lists operations such as interactive rebase, cherry-pick and bisect. gitty is written in Rust and is organized around a History tab and a Changes tab, modeled on GitHub Desktop. Choose by the workflow you want on screen.
 
 Facts about lazygit here come from its README on GitHub, read on 2026-10-07. Facts about gitty come from its own README and documentation. gitty is written by the author of this site, so read the lazygit side from lazygit's own pages as well.
 

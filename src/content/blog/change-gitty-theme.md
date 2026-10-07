@@ -81,4 +81,4 @@ The config page says unknown keys and bad values are reported at startup and fal
 
 ## More
 
-The [themes page](/docs/themes/) is the reference for names and palette keys, and the [configuration page](/docs/configuration/) lists the config keys. [What is a git TUI?](/blog/what-is-a-git-tui/) places gitty among other terminal tools.
+The [themes page](/docs/themes/) is the reference for names and palette keys, and the [configuration page](/docs/configuration/) lists the config keys. [The best git TUI clients compared](/blog/best-git-tui-clients/) places gitty among other terminal tools.

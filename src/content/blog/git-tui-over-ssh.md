@@ -30,7 +30,7 @@ If you are building from source on the server, the C compiler requirement applie
 
 ## What your terminal has to provide
 
-gitty needs a terminal with mouse reporting. It uses truecolor where the terminal has it and the nearest 256-colour palette entry elsewhere. The docs say nothing more specific than that about terminals, so if something looks wrong, start by checking those two things.
+gitty needs a terminal with mouse reporting. It uses truecolor where the terminal has it and the nearest 256-color palette entry elsewhere. The docs say nothing more specific than that about terminals, so if something looks wrong, start by checking those two things.
 
 Press `?` inside gitty to see every key. Two keys always apply: Ctrl-C quits and Ctrl-Z suspends.
 

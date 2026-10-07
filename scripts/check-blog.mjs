@@ -154,6 +154,14 @@ export function checkBlog() {
     if (!index?.includes(`href="/blog/${post.id}/"`))
       fail(`${where}: not linked from the index`);
 
+    const byline = (
+      html.match(/<p class="post-by">([\s\S]*?)<\/p>/)?.[1] ?? ""
+    )
+      .replace(/<[^>]+>/g, "")
+      .replace(/\s+/g, " ");
+    if (!/ on [A-Z][a-z]+ \d{1,2}, \d{4}\. \d+ min read\.$/.test(byline))
+      fail(`${where}: byline spacing is wrong: "${byline.trim()}"`);
+
     const wantRelated = Math.min(3, published.length - 1);
     const relatedLinks = [
       ...(

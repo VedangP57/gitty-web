@@ -13,12 +13,12 @@ This guide covers each method, how to confirm the install worked, and where to g
 
 ## What you need first
 
-gitty runs on macOS, on Apple Silicon or Intel, and on Linux, on x86_64 or arm64. gitty is built for macOS and Linux.
+gitty runs on macOS, on Apple Silicon or Intel, and on Linux, on x86_64 or arm64.
 
 Three requirements apply regardless of how you install:
 
 - `git` 2.30 or newer on your `PATH`.
-- A terminal with mouse reporting. gitty uses truecolor where your terminal has it and the nearest 256-colour palette entry elsewhere.
+- A terminal with mouse reporting. gitty uses truecolor where your terminal has it and the nearest 256-color palette entry elsewhere.
 - On Linux, the prebuilt binaries need glibc 2.35 or newer. That covers Ubuntu 22.04, Debian 12 and Fedora 36 and later. On an older system, build from source instead.
 
 To see which version of git you have, run `git --version`.
@@ -86,11 +86,13 @@ If it will not start, check the requirements above first, starting with your `gi
 
 The same command takes a few forms. `gitty` opens the repository that contains the current directory, `gitty path/to/repo` opens a specific one, and `gitty --theme dracula` starts with a named theme. There is also `gitty untune [PATH]`, which undoes the git settings gitty changes when it tunes a large repository. The [configuration page](/docs/configuration/) explains when that happens.
 
+That tuning is not automatic everywhere. The README says gitty tunes git once, in the background, on a repository with at least 10,000 commits or 20,000 index entries, unless you set `auto_tune = false`. It may write a commit-graph and set `core.untrackedCache`, but never a key you have already set. The keys it sets are recorded in `gitty.tuned`, and `gitty untune` unsets exactly those and leaves everything else alone.
+
 Once it is running, the mouse works throughout the window. Click to select, scroll any pane, drag the diff gutter to pick lines, and Shift-click to choose a range of commits. Double-click a file or a diff line to open it in `$EDITOR` at that line.
 
 ## Updating
 
-The docs do not describe a separate update command. The shell installer URL always points at the latest release, and each release has its own archives on the Releases page. If you installed with Homebrew or cargo, use that tool to get a newer version.
+The shell installer URL always points at the latest release; with Homebrew or cargo, upgrade with that tool.
 
 ## Where to go next
 

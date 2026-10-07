@@ -30,7 +30,7 @@ Two things follow from that description. Its stated focus is browsing a reposito
 
 ## How gitty differs
 
-gitty is organised as two tabs. The **Changes** tab follows the file system and stages a file, a hunk or individual lines. You commit from a box in the same window, with amend and undo, and discard with a copy kept in the Trash. The **History** tab lists local and remote commits with their refs and shows each selected commit's files and a syntax-highlighted diff, unified or split.
+gitty is organized as two tabs. The **Changes** tab follows the file system and stages a file, a hunk or individual lines. You commit from a box in the same window, with amend and undo, and discard with a copy kept in the Trash. The **History** tab lists local and remote commits with their refs and shows each selected commit's files and a syntax-highlighted diff, unified or split.
 
 It also fetches, pulls and pushes with progress shown in the app, searches the full history with `/`, and compares HEAD with any branch with `b`. As with other gitty features, writes go through `git` itself, so hooks and signing work as on the command line. [Using gitty](/docs/using-gitty/) walks through each tab.
 
@@ -38,7 +38,7 @@ gitty's documentation does not describe acting as a pager for other git commands
 
 ## Setup and requirements
 
-The two projects ask for different things at install time. tig's notes list git, ncurses and iconv as required, with optional readline and PCRE support for search and regular expressions. gitty's prebuilt binaries need `git` 2.30 or newer and a terminal with mouse reporting. On Linux, the prebuilt gitty binaries need glibc 2.35 or newer, which covers Ubuntu 22.04, Debian 12 and Fedora 36 and later. On older distributions you build gitty from source.
+The two projects ask for different things at install time. tig's notes list git, ncurses and iconv as required, with optional readline and PCRE support for search and regular expressions. gitty needs `git` 2.30 or newer and a terminal with mouse reporting. On Linux, the prebuilt gitty binaries need glibc 2.35 or newer, which covers Ubuntu 22.04, Debian 12 and Fedora 36 and later. On older distributions you build gitty from source.
 
 If you are unsure, check your platform against the table above first.
 

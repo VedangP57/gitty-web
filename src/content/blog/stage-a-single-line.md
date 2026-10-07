@@ -24,7 +24,7 @@ gitty's Changes tab is built for this. Its status follows the file system, and t
 3. Press `Tab` to move to the next pane, where the diff is, and select the line you want.
 4. Press `Space` to stage it.
 
-With the mouse, drag the diff gutter to pick several lines, or click the gutter to pick one. The docs describe the gutter as the place to click or drag "to pick lines", and `Space` then stages the selection. If you prefer the keyboard for a block of lines, `v` selects a range of lines, and `Space` stages them.
+With the mouse, click the diff gutter to stage one line, or drag along it to stage several; the lines are staged when you release the button. If you prefer the keyboard for a block of lines, `v` selects a range of lines, and `Space` stages them.
 
 What you should see: the file's checkbox in the list changes to match, because checkboxes always reflect `git status`.
 

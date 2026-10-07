@@ -11,12 +11,6 @@ const site = process.env.SITE_URL ?? 'https://gitty.runs-on.dev';
 export default defineConfig({
   site,
   trailingSlash: 'ignore',
-  markdown: {
-    shikiConfig: {
-      themes: { light: 'github-light', dark: 'github-dark' },
-      defaultColor: false,
-    },
-  },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     starlight({

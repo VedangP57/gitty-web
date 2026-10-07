@@ -59,8 +59,8 @@ const jsonLd = [
       <p class="post-crumbs"><a href="/blog/">Blog</a></p>
       <h1>{post.data.title}</h1>
       <p class="post-by">
-        {kindLabel[post.data.kind]}, by Vedang Patel on
-        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>.
+        {kindLabel[post.data.kind]}, by Vedang Patel on{' '}
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>.{' '}
         {readingMinutes(post.body)} min read.
       </p>
     </header>
