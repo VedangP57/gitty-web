@@ -61,6 +61,8 @@ makes a much smaller binary that highlights through the syntect fallback.
 - On Linux, live refresh watches every directory with inotify. Repositories with
   more directories than `fs.inotify.max_user_watches` allows open with a notice
   and refresh when the terminal regains focus instead.
+- Optional: the [`gh` CLI](https://cli.github.com/), logged in, for the pull
+  request badge in the top bar. Without it the badge is left out.
 
 ## Run it
 
@@ -70,3 +72,13 @@ gitty path/to/repo
 gitty --theme dracula
 gitty untune [PATH]
 ```
+
+If you use [herdr](https://herdr.dev), gitty also ships a plugin that opens it
+in a popup — see [In herdr](/docs/using-gitty/#in-herdr).
+
+## Upgrading
+
+With Homebrew, run `brew upgrade vedangp57/tap/gitty`. Otherwise run the shell
+installer or `cargo install --locked gitty-cli` again; both fetch the latest
+release.
+The [changelog](/docs/changelog/) lists what changed in each release.

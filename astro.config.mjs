@@ -44,6 +44,7 @@ export default defineConfig({
             { label: 'Keybindings', slug: 'docs/keys' },
             { label: 'Configuration', slug: 'docs/configuration' },
             { label: 'Themes', slug: 'docs/themes' },
+            { label: 'Changelog', slug: 'docs/changelog' },
           ],
         },
       ],

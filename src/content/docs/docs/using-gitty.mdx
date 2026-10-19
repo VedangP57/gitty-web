@@ -72,8 +72,10 @@ changes, switching offers "stash and switch" and merging "stash and merge".
 
 `S` lists stashes with their age: `a` applies, `p` pops, `d` drops (after
 asking) and `n` stashes the current changes under a message. Stashes include
-untracked files. gitty never re-applies a stash by itself, except to put your
-changes back after "stash and switch".
+untracked files. After "stash and switch" your changes stay in the stash
+(`gitty: auto-stash from <branch>`) until you apply or pop them; gitty puts
+them back by itself only when the switch fails, or when you abort a conflicted
+"stash and merge".
 
 ## Pull requests
 

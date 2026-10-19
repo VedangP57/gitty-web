@@ -127,8 +127,12 @@ export function checkBlog() {
 
     for (const key of ["title", "description", "date", "kind"])
       if (!post.data[key]) fail(`${where}: missing ${key}`);
-    if (post.data.date !== "2026-10-07")
-      fail(`${where}: date must be 2026-10-07`);
+    if (
+      !/^\d{4}-\d{2}-\d{2}$/.test(post.data.date) ||
+      Number.isNaN(Date.parse(post.data.date)) ||
+      Date.parse(post.data.date) > Date.now()
+    )
+      fail(`${where}: date must be a real YYYY-MM-DD date, not in the future`);
     if (!html) {
       fail(`${where}: page was not built`);
       continue;
