@@ -2,6 +2,7 @@
 title: "How to browse the history of a huge repository"
 description: "Browse the history of a very large repository without waiting. What loads first, how to switch scope, and how to pick a range of commits."
 date: 2026-10-07
+updated: 2026-10-19
 kind: howto
 tags: ["history", "large repositories", "git tui"]
 order: 11
@@ -14,6 +15,8 @@ Open gitty in the repository and press `2` for the History tab. The layout draws
 ## What draws first
 
 gitty's benchmark notes state the order: the UI draws its layout first and streams rows in afterwards. The README lists the first frame, with the layout drawn, at 14 ms. On a blobless clone of the Linux kernel, which has 1,484,291 commits, the first 500 history rows take 23 ms in the benchmark. Those were measured on Apple Silicon with a release build and a warm cache, so treat them as a sense of scale and not a promise for your machine.
+
+The commit graph, which History shows by default, changes this on one kind of repository. With the graph on, the list is in git's topological order, from `git rev-list --topo-order`. On a large repository without a commit-graph file, the first rows wait for git to sort the whole history, about a third of a second per 100,000 commits by the README's figure. With a commit-graph file, which auto-tune writes, they show at once. `L` hides the graph and lists commits by date.
 
 The notes also record that the first run after other disk activity is slower: with a cold page cache, reading the kernel's 945 refs takes about 0.8 to 1.0 seconds. If the first open of a very large repository feels slower than the next one, the benchmark notes name a cold page cache as one cause.
 
@@ -32,13 +35,14 @@ The README's performance table also gives the cost of the work you do after the 
 
 `Tab` moves between panes, and `?` shows every key. On a wide terminal, gitty turns split view on by itself at the width set by `split_threshold`, which defaults to `200`, so `s` is only needed when you want the other layout.
 
-What you should see: a commit list with refs and ahead and behind marks, and for the selected commit a file list and a diff. The marks show what is ahead of or behind the upstream, and on a branch that has never been pushed, `↑` marks what pushing it would publish.
+What you should see: a commit list with refs, a commit graph, and ahead and behind marks, and for the selected commit a file list and a diff. The marks show what is ahead of or behind the upstream, and on a branch that has never been pushed, `↑` marks what pushing it would publish.
 
 ## Tune the view
 
 A few keys change how much fits on screen:
 
 - `z` changes row density, `compact` being the default.
+- `L` shows or hides the commit graph.
 - `D` changes the date format. The `date_mode` setting in your config takes `relative`, `absolute` or `both`.
 - `o` expands the commit header.
 - `y` copies the short SHA and `Y` the full SHA.

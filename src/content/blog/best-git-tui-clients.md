@@ -2,6 +2,7 @@
 title: "The best git TUI clients compared"
 description: "lazygit, tig, gitui and gitty compared on language, platforms and focus, using each project's own documentation. No benchmarks, just facts."
 date: 2026-10-07
+updated: 2026-10-19
 kind: comparison
 tags: ["git tui", "lazygit", "tig", "gitui", "comparison"]
 order: 5
@@ -44,10 +45,10 @@ gitui's README lists keyboard-only control, context-based help, staging, unstagi
 
 ## gitty
 
-gitty has a History tab and a Changes tab. History shows local and remote commits with their refs and a syntax-highlighted diff, unified or split. Changes follows the file system and stages by file, hunk or line. It also fetches, pulls and pushes inside the app, searches the whole history and compares HEAD with any branch. It runs on macOS and Linux. See [Using gitty](/docs/using-gitty/) for the full tour. If you are coming from a graphical client, [A GitHub Desktop alternative in the terminal](/blog/github-desktop-alternative-terminal/) covers that move.
+gitty has three tabs: History, Changes and Files. History shows local and remote commits with their refs and a commit graph, and a syntax-highlighted diff, unified or split. Changes follows the file system and stages by file, hunk or line. Files browses the working tree. It switches, creates, renames, deletes and merges branches from a picker, keeps a stash list, and helps resolve a merge, rebase, cherry-pick or revert that stopped on conflicts. It also fetches, pulls and pushes inside the app, searches the whole history and compares HEAD with any branch. It runs on macOS and Linux. See [Using gitty](/docs/using-gitty/) for the full tour. If you are coming from a graphical client, [A GitHub Desktop alternative in the terminal](/blog/github-desktop-alternative-terminal/) covers that move.
 
 ## How to choose
 
-Start from the platform. If you need Windows, gitty is not an option today and the other three document it. Then start from the workflow. If you want a repository browser, read tig's README. If you want rebase and cherry-pick behind a menu, read lazygit's feature list. If you want keyboard-only control with stashing, read gitui's. If you like the History and Changes layout of GitHub Desktop and work on macOS or Linux, try gitty with `brew install vedangp57/tap/gitty`.
+Start from the platform. If you need Windows, gitty is not an option today and the other three document it. Then start from the workflow. If you want a repository browser, read tig's README. If you want rebase and cherry-pick behind a menu, read lazygit's feature list. If you want keyboard-only control with submodule support, read gitui's. If you like the History and Changes layout of GitHub Desktop and work on macOS or Linux, try gitty with `brew install vedangp57/tap/gitty`.
 
 Trying two of them on the same repository is a quick way to find out which one suits you.

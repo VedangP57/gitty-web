@@ -2,12 +2,13 @@
 title: "gitty vs tig"
 description: "How gitty and tig differ in language, workflow and what each is built for, and where tig is the better fit. Based on each project's own docs."
 date: 2026-10-07
+updated: 2026-10-19
 kind: comparison
 tags: ["tig", "comparison", "git tui"]
 order: 7
 ---
 
-tig and gitty are built for different jobs. tig describes itself as a repository browser that can also stage changes in chunks and page the output of git commands. gitty is a git client with a History tab and a Changes tab, aimed at the GitHub Desktop workflow, including staging by hunk or by line. If you mostly read history and command output, tig is built for that. If you want History and Changes as two tabs, with line staging and a commit box, gitty is built around that.
+tig and gitty are built for different jobs. tig describes itself as a repository browser that can also stage changes in chunks and page the output of git commands. gitty is a git client with History, Changes and Files tabs, aimed at the GitHub Desktop workflow, including staging by hunk or by line. If you mostly read history and command output, tig is built for that. If you want History and Changes as separate tabs, with line staging and a commit box, gitty is built around that.
 
 Facts about tig come from its README, INSTALL notes and license file on GitHub, read on 2026-10-07. Facts about gitty come from its README and documentation. gitty is written by the author of this site.
 
@@ -30,9 +31,9 @@ Two things follow from that description. Its stated focus is browsing a reposito
 
 ## How gitty differs
 
-gitty is organized as two tabs. The **Changes** tab follows the file system and stages a file, a hunk or individual lines. You commit from a box in the same window, with amend and undo, and discard with a copy kept in the Trash. The **History** tab lists local and remote commits with their refs and shows each selected commit's files and a syntax-highlighted diff, unified or split.
+gitty is organized as three tabs. The **Changes** tab follows the file system and stages a file, a hunk or individual lines. You commit from a box in the same window, with amend and undo, and discard with a copy kept in the Trash. The **History** tab lists local and remote commits with their refs and a commit graph, and shows each selected commit's files and a syntax-highlighted diff, unified or split. The **Files** tab browses the working tree with a read-only viewer.
 
-It also fetches, pulls and pushes with progress shown in the app, searches the full history with `/`, and compares HEAD with any branch with `b`. As with other gitty features, writes go through `git` itself, so hooks and signing work as on the command line. [Using gitty](/docs/using-gitty/) walks through each tab.
+It also fetches, pulls and pushes with progress shown in the app, searches the full history with `/`, and compares HEAD with any branch with `b`. It switches and merges branches from a picker (`B`), keeps a stash list (`S`), and helps resolve a merge, rebase, cherry-pick or revert that stopped on conflicts. As with other gitty features, writes go through `git` itself, so hooks and signing work as on the command line. [Using gitty](/docs/using-gitty/) walks through each tab.
 
 gitty's documentation does not describe acting as a pager for other git commands.
 

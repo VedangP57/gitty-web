@@ -1,7 +1,8 @@
 ---
 title: "How to change gitty's theme, or write your own"
-description: "Switch gitty's theme live, choose from the 11 built-in themes, or write your own theme file with a custom palette."
+description: "Switch gitty's theme live, choose from the 23 built-in themes, or write your own theme file with a custom palette."
 date: 2026-10-07
+updated: 2026-10-19
 kind: howto
 tags: ["themes", "configuration", "customization"]
 order: 16
@@ -18,19 +19,25 @@ Press `T` in gitty for a theme picker with a live preview, and press `Enter` on 
 
 What you should see: colors across the History and Changes tabs change to the theme you picked. Highlighting stores capture names rather than colors, so switching themes never re-highlights anything.
 
-## The 11 built-in themes
+## The 23 built-in themes
 
 The themes page lists these names:
 
 - `github-dark` and `github-light`
 - `rose-pine` and `rose-pine-dawn`
-- `catppuccin-mocha` and `catppuccin-latte`
-- `tokyo-night`
+- `catppuccin-mocha`, `catppuccin-latte`, `catppuccin-frappe` and `catppuccin-macchiato`
+- `tokyo-night`, `tokyo-night-storm` and `tokyo-night-day`
 - `dracula`
-- `gruvbox-dark`
+- `gruvbox-dark` and `gruvbox-light`
 - `solarized-dark` and `solarized-light`
+- `nord`
+- `one-dark` and `one-light`
+- `kanagawa`
+- `everforest-dark`
+- `ayu-mirage`
+- `nightfox`
 
-The README says they reproduce the palettes of Catppuccin, Dracula, GitHub, Gruvbox, Rosé Pine, Solarized and Tokyo Night.
+The README says they reproduce the palettes of Ayu, Catppuccin, Dracula, Everforest, GitHub, Gruvbox, Kanagawa, Nightfox, Nord, Atom One Dark and One Light, Rosé Pine, Solarized and Tokyo Night.
 
 ## Keep a theme in the config
 

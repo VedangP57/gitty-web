@@ -2,6 +2,7 @@
 title: "A GitHub Desktop alternative in the terminal"
 description: "GitHub Desktop is a graphical app. If you want a similar History and Changes workflow in a terminal, here is how gitty compares."
 date: 2026-10-07
+updated: 2026-10-19
 kind: comparison
 tags: ["github desktop", "alternative", "git tui"]
 order: 9
@@ -28,11 +29,15 @@ GitHub's documentation describes reviewing changes in a Changes tab, where you s
 
 ## What gitty keeps
 
-The window has a **History** tab (`2`) and a **Changes** tab (`1`), and `Tab` moves between panes.
+The window has a **History** tab (`2`), a **Changes** tab (`1`) and a **Files** tab (`3`), and `Tab` moves between panes.
 
 - In Changes you stage a file, a hunk or single lines with `Space`, or by clicking the diff gutter to pick lines. You commit from a box with amend and undo, and discarded changes keep a copy in the Trash.
-- In History you see local and remote commits with their refs, and select a commit or a range to see its files and a syntax-highlighted diff.
+- In History you see local and remote commits with their refs and a commit graph, and select a commit or a range to see its files and a syntax-highlighted diff.
+- In Files you browse the working tree with a read-only viewer.
+- `B` opens a branch picker to switch, create, rename, delete and merge branches, and `S` lists stashes.
+- A merge, rebase, cherry-pick or revert that stops on conflicts shows in the top bar. You keep one side or both of each conflict block, then continue or abort with `m`.
 - Fetch, pull and push report progress in the app and ask for passwords inside it.
+- When the branch has a pull request on GitHub, the top bar shows `PR #<n>`, and `R` opens it in the browser. This needs the `gh` CLI.
 - The mouse works throughout, so clicking and scrolling behave as you would expect from a desktop application.
 
 ## What is different

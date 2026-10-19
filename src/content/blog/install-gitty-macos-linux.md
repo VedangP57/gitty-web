@@ -2,6 +2,7 @@
 title: "Install gitty on macOS and Linux"
 description: "Install gitty with Homebrew, the shell installer, a prebuilt archive or crates.io, then check it runs. Needs git 2.30 or newer on your PATH."
 date: 2026-10-07
+updated: 2026-10-19
 kind: guide
 tags: ["install", "homebrew", "gitty"]
 order: 2
@@ -78,7 +79,7 @@ cd path/to/some/repo
 gitty
 ```
 
-You can also pass a path, as in `gitty path/to/repo`. You should see the History and Changes tabs. The History tab is on `2` and the Changes tab on `1`, and `Tab` moves between panes. Press `?` to see every key, and quit with `q` or Ctrl-C.
+You can also pass a path, as in `gitty path/to/repo`. You should see the History, Changes and Files tabs. The History tab is on `2`, the Changes tab on `1` and the Files tab on `3`, and `Tab` moves between panes. Press `?` to see every key, and quit with `q` or Ctrl-C.
 
 If it will not start, check the requirements above first, starting with your `git` version.
 
@@ -96,4 +97,4 @@ The shell installer URL always points at the latest release; with Homebrew or ca
 
 ## Where to go next
 
-[Using gitty](/docs/using-gitty/) walks through the History and Changes tabs and what you can do in each. [Keybindings](/docs/keys/) lists every key and explains how to rebind them in your config file.
+[Using gitty](/docs/using-gitty/) walks through each tab and what you can do in it. [Keybindings](/docs/keys/) lists every key and explains how to rebind them in your config file.

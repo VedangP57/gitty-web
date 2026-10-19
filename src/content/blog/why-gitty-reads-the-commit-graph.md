@@ -2,6 +2,7 @@
 title: "Why gitty reads the commit-graph"
 description: "Why gitty reads git's commit-graph: a full history walk takes 24.8 ms with it and 721 ms without, measured on git/git."
 date: 2026-10-07
+updated: 2026-10-19
 kind: engineering
 tags: ["commit-graph", "performance", "git internals"]
 order: 18
@@ -13,7 +14,7 @@ On git/git, gitty's full history walk over the current branch and its upstream t
 
 Git's documentation for the commit-graph file says it stores, for each commit, the commit object ID, the list of parents with their integer positions, the commit date, the root tree ID and a generation number. Commits are listed in lexicographic order of object ID, so each commit gets an integer position, and parents can be referred to by position instead of by looking up an object. The same page names the two costs it removes: decompressing and parsing commits, and walking the whole graph to satisfy topological order. The full description is in [git's commit-graph documentation](https://git-scm.com/docs/commit-graph).
 
-gitty's walker is built around this. The module comment in `crates/gitty-core/src/history.rs` describes a commit-time ordered walk that is commit-graph native, with a fallback that decodes commits from the object database. History entries are `u32` values: either a commit-graph position, or a flagged index into commits that are not in the graph yet. The comment adds that the list is never topologically sorted, because a flat list only needs commit-time order.
+gitty's walker is built around this. The module comment in `crates/gitty-core/src/history.rs` describes a commit-time ordered walk that is commit-graph native, with a fallback that decodes commits from the object database. History entries are `u32` values: either a commit-graph position, or a flagged index into commits that are not in the graph yet. The comment adds that the list is never topologically sorted, because a flat list only needs commit-time order. It also notes that the graph view, which History shows by default since 0.2.0, lists git's topological order instead.
 
 ## The git/git numbers
 

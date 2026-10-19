@@ -1,10 +1,10 @@
 ---
 title: Using gitty
-description: The History tab, the Changes tab, line staging, network operations, search and compare.
+description: History and its commit graph, Changes and line staging, the Files tab, branches, stashes, conflicts, network operations, search and compare.
 ---
 
-The window has a **History** tab (`2`) and a **Changes** tab (`1`). `Tab` moves
-between panes and `?` shows every key.
+The window has a **Changes** tab (`1`), a **History** tab (`2`) and a **Files**
+tab (`3`). `Tab` moves between panes and `?` shows every key.
 
 The mouse works throughout: click to select, scroll any pane, drag the diff
 gutter to pick lines, Shift-click for a commit range, and double-click a file or
@@ -15,6 +15,19 @@ diff line to open it in `$EDITOR` at that line.
 Local and remote commits with their refs, and marks for what is ahead of or
 behind the upstream. On a branch that has never been pushed, `↑` marks what
 pushing it would publish.
+
+A commit graph to the left of the subjects draws the branches the way
+[lazygit](https://github.com/jesseduffield/lazygit) does (its layout, ported):
+`●` for a commit, `◉` for a merge and `◎` for the checked-out commit. Each
+branch keeps one theme colour from top to bottom and its labels are pills in
+that colour; the current branch's line is drawn heavy (`┃`). A spacer line under
+each commit carries the branch lines down to the next one;
+`history_graph_style = "compact"` drops the spacers for one line per commit.
+
+With the graph on, the list is in topological order, so a branch's commits stay
+together. `L` hides the graph and lists commits by date (`history_graph = false`
+starts that way). The graph steps aside during a search, a `V` range, compare
+mode and in a History pane narrower than 34 columns.
 
 Select a commit — or a `V` range of them — for its files and a syntax-highlighted
 diff, unified or split (`s`). Added and deleted files always use the full width.
@@ -30,9 +43,45 @@ Status that follows the file system:
 - **Discard** with `d`; a copy is kept in the Trash.
 - **Commit** in the box at the bottom with `c`. `A` amends the last commit and
   `u` undoes it while it is still `HEAD`.
+- **Stash** everything with `Z`, with an optional message.
 - `F` filters the file list; `t` shows it as a tree.
 
 Staging uses the real git index — checkboxes always reflect `git status`.
+
+## Files
+
+The Files tab browses the working tree as a tree that loads each directory when
+you open it (`Enter` or `l`; `h` closes it or goes to the parent), with a
+read-only, syntax-coloured viewer. Changed files carry their letter and colour
+from the Changes tab, and a folder with changes below it shows a `●` even when
+folded. `i` hides or shows ignored files (`files_show_ignored` sets the start),
+and `e` or a double-click opens a file in `$EDITOR`.
+
+Files named like secrets — `.env` and its variants, private keys and
+certificates, token and password files, anything under `.ssh` or `.aws` — are
+marked `(secret)` and not read from disk until you press `v`. The match is by
+name only, and masking applies to the Files tab only.
+
+## Branches and stashes
+
+`B` opens the branch picker. `Enter` switches (a remote-only branch gets a local
+tracking branch), `Ctrl-N` creates, `Ctrl-R` renames, `Ctrl-D` deletes — asking
+twice when the branch has commits its upstream lacks — and `Ctrl-G` merges the
+highlighted branch into the checked-out one after asking. With uncommitted
+changes, switching offers "stash and switch" and merging "stash and merge".
+
+`S` lists stashes with their age: `a` applies, `p` pops, `d` drops (after
+asking) and `n` stashes the current changes under a message. Stashes include
+untracked files. gitty never re-applies a stash by itself, except to put your
+changes back after "stash and switch".
+
+## Pull requests
+
+When the branch has a pull request on GitHub, the top bar shows `PR #<n>`,
+coloured by its state (open, draft, merged, closed); click it to open the page.
+`R` opens the branch's pull request in the browser, or the new-pull-request page
+when there is none. The badge needs the [`gh` CLI](https://cli.github.com/)
+logged in and is left out otherwise; pull requests from forks are ignored.
 
 ## Network
 
@@ -40,6 +89,48 @@ Staging uses the real git index — checkboxes always reflect `git status`.
 progress in the top bar, `x` to cancel, and password or passphrase prompts
 inside the app. A background fetch runs every few minutes
 (`auto_fetch_minutes`).
+
+A push rejected because the remote moved on (after an amend or a rebase) offers
+a force push with lease. The question lists the remote commits it would remove,
+and the lease is the commit you last fetched, so git refuses if anyone pushed
+since. `main`, `master` and the branch `origin/HEAD` points to are never force
+pushed.
+
+## Merges in progress
+
+When a merge, rebase, cherry-pick or revert has stopped — started in gitty or in
+another terminal — the top bar shows it with its conflict count, such as
+`MERGING topic · 2 conflicts` or `REBASING feat · step 2/5 · 1 conflict`. `m`
+opens a dialog: `c` continues once nothing conflicts (no editor opens; the
+prepared message is used), `a` aborts after asking.
+
+A merge or pull that hits conflicts is left open and asks "Resolve now?":
+`Enter` goes to the first conflicted file, `a` aborts, and `Esc` decides later.
+
+## Resolving conflicts
+
+Conflicted files head the Changes list with their number of conflict blocks.
+Selecting one shows each block as two tinted sides under headers named for the
+operation, because git's "ours" and "theirs" swap roles when commits are
+replayed:
+
+| Operation | First side | Second side |
+|---|---|---|
+| merge | Current | Incoming |
+| rebase | Base branch | Your commit |
+| cherry-pick | Current branch | Picked commit |
+| revert | Current branch | Without change |
+
+`o` keeps the first side, `t` takes the second, `b` keeps both, `n` and `p` move
+between blocks, `u` takes the last resolution back and `e` opens the editor at
+the block. A resolution is written atomically and only over the text that was
+on screen; a block with ambiguous markers is left to the editor. While a
+conflicted file is selected, `p` and `u` mean previous conflict and undo the
+resolution, not pull and undo the last commit.
+
+Nothing is staged for you: after the last block, press `Space` to stage the
+file. Conflicts without markers — a binary file, or a file one side deleted —
+are explained in words and settled whole after asking.
 
 ## Search
 
@@ -52,9 +143,35 @@ unfiltered.
 `b` compares `HEAD` with any branch: what is behind, what is ahead, and the
 files that differ.
 
+## In herdr
+
+gitty ships a [herdr](https://herdr.dev) plugin that opens it in a popup on the
+repository of the focused pane:
+
+```sh
+herdr plugin install VedangP57/gitty/herdr-plugin
+```
+
+Bind it to a key in your herdr config:
+
+```toml
+[[keys.command]]
+key = "prefix+g"
+type = "plugin_action"
+command = "vedangp57.gitty.open"
+description = "gitty"
+```
+
+Without a gitty on your `PATH`, the plugin downloads the latest release into its
+own state folder and checks it against the published SHA-256.
+
 ## Large repositories
 
 On a repository with at least 10,000 commits or 20,000 index entries, gitty
 tunes git once in the background — a commit-graph, `core.untrackedCache`, and
 `core.fsmonitor` where available — unless `auto_tune = false`. The keys it sets
 are recorded in `gitty.tuned`, and `gitty untune [PATH]` unsets exactly those.
+
+Without a commit-graph file, the topological order of the graph view means the
+first History rows wait for git to sort the whole history, about a third of a
+second per 100,000 commits; auto-tune writes that file on large repositories.

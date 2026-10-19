@@ -1,6 +1,6 @@
 ---
 title: Keybindings
-description: Every gitty key — quit, tabs, staging, search, compare, scrolling — and how to rebind it.
+description: Every gitty key — tabs, staging, conflicts, branches, stashes, search, compare, scrolling — and how to rebind it.
 ---
 
 Every key can be rebound in `~/.config/gitty/config.toml` under `[keys]`, using
@@ -22,27 +22,47 @@ suspend.
 
 | Keys | Action | Config name |
 |---|---|---|
+| `o` | Conflict: keep the first side (Current; Base branch in a rebase) | `conflict_ours` |
+| `t` | Conflict: take the second side (Incoming; Your commit in a rebase) | `conflict_theirs` |
+| `b` | Conflict: keep both, first side then second | `conflict_both` |
+| `n` | Conflict: next conflict in the file | `conflict_next` |
+| `p` | Conflict: previous conflict in the file | `conflict_prev` |
+| `u` | Conflict: undo the last resolution of this file | `conflict_undo` |
+| `e` | Conflict: open the file in $EDITOR at the conflict | `conflict_edit` |
 | `q` | quit | `quit` |
 | `1` | Changes tab | `changes_tab` |
 | `2` | History tab | `history_tab` |
+| `3` | Files tab | `files_tab` |
 | `f` | fetch | `fetch` |
 | `p` | pull | `pull` |
 | `P` | push | `push` |
 | `x` | cancel the running fetch, pull or push | `cancel` |
 | `O` | open the diff in the difftool | `difftool` |
+| `R` | open the branch's open pull request in the browser (needs the `gh` CLI; otherwise the new-PR page) | `open_pr` |
 | `T` | theme picker | `theme` |
-| `?` | help | `help` |
+| `B` | branches: switch, create, rename, delete, merge | `branches` |
+| `S` | stashes: apply, pop, drop | `stashes` |
+| `m` | the merge, rebase, cherry-pick or revert in progress: continue or abort it | `operation` |
+| `?` | this help | `help` |
 | `!` | details of the last error | `error_details` |
+| `h` `←` | compare: previous tab | `compare_prev_tab` |
+| `l` `→` | compare: next tab | `compare_next_tab` |
 | `c` | Changes: write the commit message | `commit_box` |
 | `A` | Changes: amend the last commit | `amend` |
 | `u` | Changes: undo the last commit | `undo_commit` |
+| `Z` | Changes: stash all changes | `stash_push` |
 | `Space` | Changes: stage file / line (again: unstage) | `stage` |
 | `a` | Changes: stage everything / the whole file | `stage_all` |
 | `d` | Changes: discard file / lines (asks first) | `discard` |
 | `F` | Changes: filter the file list | `filter` |
 | `v` | Changes: select a range of lines | `line_range` |
 | `H` | Changes: stage the hunk | `stage_hunk` |
-| `/` | search history (text, `path:`) | `search` |
+| `v` | Files: show or hide a secret file (.env, keys…) | `reveal_secret` |
+| `e` | Files: open the file in $EDITOR | `open_editor` |
+| `i` | Files: show or hide ignored files | `toggle_ignored` |
+| `h` `←` | Files: close the directory (or go to its parent) | `files_collapse` |
+| `l` `→` | Files: open the directory | `files_expand` |
+| `/` | search history (text, path:dir) | `search` |
 | `n` | next search match | `next_match` |
 | `N` | previous search match | `prev_match` |
 | `V` | select a range of commits | `range` |
@@ -54,23 +74,27 @@ suspend.
 | `o` | expand the commit header | `header` |
 | `D` | date format | `dates` |
 | `z` | row density | `density` |
-| `s` | split ↔ unified diff | `split` |
-| `w` | whitespace mode | `whitespace` |
-| `W` | wrap long lines | `wrap` |
+| `L` | show or hide the commit graph | `graph` |
+| `h` `←` | scroll the diff left | `scroll_left` |
+| `l` `→` | scroll the diff right | `scroll_right` |
 | `[` | previous hunk | `prev_hunk` |
 | `]` | next hunk | `next_hunk` |
 | `{` | previous file | `prev_file` |
 | `}` | next file | `next_file` |
 | `e` | more context near the cursor | `expand` |
 | `E` | whole file | `expand_file` |
+| `s` | split ↔ unified | `split` |
+| `w` | whitespace mode | `whitespace` |
+| `W` | wrap long lines | `wrap` |
+| `F` | full-screen diff | `fullscreen` |
 | `<` | shrink the focused pane | `narrower` |
 | `>` | grow the focused pane | `wider` |
 | `j` `↓` | move down | `down` |
 | `k` `↑` | move up | `up` |
 | `Ctrl-d` | half a page down | `half_page_down` |
 | `Ctrl-u` | half a page up | `half_page_up` |
-| `Ctrl-f` `PgDn` | page down | `page_down` |
-| `Ctrl-b` `PgUp` | page up | `page_up` |
+| `Ctrl-f` `PgDn` | a page down | `page_down` |
+| `Ctrl-b` `PgUp` | a page up | `page_up` |
 | `g` `Home` | first row | `top` |
 | `G` `End` | last row | `bottom` |
 | `Tab` | next pane | `next_pane` |

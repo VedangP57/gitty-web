@@ -2,6 +2,7 @@
 title: "Keep a git TUI fast on very large repositories"
 description: "Why git tools slow down on big repositories, how gitty tunes git and uses the commit-graph, and what to check if history feels slow."
 date: 2026-10-07
+updated: 2026-10-19
 kind: guide
 tags: ["performance", "large repositories", "commit-graph"]
 order: 4
@@ -46,7 +47,7 @@ Work through this checklist:
 
 1. **Check the thresholds.** Auto-tuning starts at 10,000 commits or 20,000 index entries. A smaller repository will not be tuned, which also means it will not have been given a commit-graph by gitty.
 2. **Check that `auto_tune` is not false.** It defaults to `true`, but a `false` in `~/.config/gitty/config.toml` turns tuning off.
-3. **Check that the commit-graph exists.** gitty skips writing one when `core.commitGraph` is off or the clone is shallow. If the repository has no commit-graph, the walk falls back to decoding from the object database.
+3. **Check that the commit-graph exists.** gitty skips writing one when `core.commitGraph` is off or the clone is shallow. If the repository has no commit-graph, the walk falls back to decoding from the object database, and with the commit graph shown in History (the default) the first rows also wait for git to sort the whole history. `L` hides the graph and lists commits by date.
 4. **Check for a cold cache.** The first run after other heavy disk activity is slower than later runs, as the benchmark notes show.
 5. **On Linux, check the inotify limit.** If a repository has more directories than `fs.inotify.max_user_watches` allows, gitty opens it with a notice and refreshes when the terminal regains focus, rather than live.
 

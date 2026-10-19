@@ -6,7 +6,7 @@ import '../styles/mock.css';
 
 const title = 'gitty — a fast terminal git client in Rust';
 const description =
-  'gitty is a fast terminal (TUI) git client with the GitHub Desktop experience: History, Changes, line staging, fetch, pull, push, search and compare. Written in Rust.';
+  'gitty is a fast terminal (TUI) git client with the GitHub Desktop experience: a commit graph, line staging, conflict resolution, branches, stashes, fetch, pull and push. Written in Rust.';
 
 const lead = {
   title: 'Stage a single line.',
@@ -17,19 +17,24 @@ const lead = {
 
 const features = [
   {
-    title: 'History that keeps up',
-    body: 'Local and remote commits with refs and ahead/behind marks, read straight from the commit-graph. Select a commit, or a range, for its files and a syntax-highlighted diff.',
-    href: '/docs/using-gitty/',
+    title: 'History with a graph',
+    body: 'Local and remote commits with refs, ahead/behind marks and a commit graph, one colour per branch. Search the whole history by text, author or path, and compare HEAD with any branch.',
+    href: '/docs/using-gitty/#history',
+  },
+  {
+    title: 'Resolve conflicts in place',
+    body: 'A stopped merge, rebase, cherry-pick or revert shows in the top bar. Keep one side of each block, or both, then continue or abort with m. Nothing is staged for you.',
+    href: '/docs/using-gitty/#resolving-conflicts',
+  },
+  {
+    title: 'Branches, stashes, pull requests',
+    body: 'Switch, create, rename, delete and merge from a branch picker, stash with one key, and see the branch’s GitHub pull request in the top bar.',
+    href: '/docs/using-gitty/#branches-and-stashes',
   },
   {
     title: 'Fetch, pull, push',
-    body: 'Live progress, cancel, and password prompts inside the app. A background fetch runs every few minutes so the view is never stale.',
-    href: '/docs/using-gitty/',
-  },
-  {
-    title: 'Search and compare',
-    body: 'Search the whole history by text, author or path while you keep working. Compare HEAD against any branch.',
-    href: '/docs/keys/',
+    body: 'Live progress, cancel, and password prompts inside the app. A rejected push after an amend offers a force push with lease, never on main.',
+    href: '/docs/using-gitty/#network',
   },
   {
     title: 'Your git, untouched',
@@ -66,14 +71,16 @@ const jsonLd = {
       license: 'https://github.com/VedangP57/gitty/blob/main/LICENSE',
       isAccessibleForFree: true,
       featureList: [
-        'History with refs and ahead/behind marks',
+        'History with refs, ahead/behind marks and a commit graph',
         'Stage by file, hunk or single line',
+        'Resolve merge and rebase conflicts block by block',
+        'Branch picker, stashes and GitHub pull request status',
         'Fetch, pull and push with live progress',
         'Search and compare across the full history',
-        'Eleven built-in themes, switched live',
+        '23 built-in themes, switched live',
       ],
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      softwareVersion: '0.1.2',
+      softwareVersion: '0.2.0',
       sameAs: ['https://github.com/VedangP57/gitty'],
       isPartOf: { '@id': `${origin}#website` },
     },
@@ -87,8 +94,8 @@ const jsonLd = {
       <h1>Your repo, live.<br />Leave it open.</h1>
       <div class="hero-side">
         <p class="lede">
-          A fast git TUI with the GitHub Desktop experience. History, line staging, fetch, push and
-          search, written in Rust.
+          A fast git TUI with the GitHub Desktop experience. A commit graph, line staging, conflict
+          resolution, fetch, push and search, written in Rust.
         </p>
         <Install cmd="brew install vedangp57/tap/gitty" />
         <div class="hero-meta">Runs on macOS and Linux with git 2.30 or newer.</div>
@@ -104,7 +111,7 @@ const jsonLd = {
     <div class="shell proof-grid">
       <p><b>14 ms</b> to first frame on git/git</p>
       <p><b>1.48M</b> commits walked in a kernel clone</p>
-      <p><b>11</b> built-in themes, switched live</p>
+      <p><b>23</b> built-in themes, switched live</p>
       <p><b>MIT</b> licensed, no telemetry</p>
     </div>
   </section>

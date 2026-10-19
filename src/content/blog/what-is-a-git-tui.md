@@ -2,6 +2,7 @@
 title: "What is a git TUI, and when should you use one?"
 description: "A git TUI is a full-screen git client that runs inside your terminal. What it is, how it differs from a GUI, and when it is the better tool."
 date: 2026-10-07
+updated: 2026-10-19
 kind: guide
 tags: ["git tui", "terminal git client", "git"]
 order: 1
@@ -53,11 +54,13 @@ It also assumes a reasonably capable terminal. gitty needs a terminal with mouse
 
 gitty is a terminal git client written in Rust with Ratatui, aimed at the GitHub Desktop experience: a History view, a Changes view, line staging, fetch, pull and push, plus search and compare.
 
-The window has two tabs. **History** shows local and remote commits with their refs, and marks what is ahead of or behind the upstream. Select a commit, or a range of them, and you get its files and a syntax-highlighted diff, either unified or split.
+The window has three tabs. **History** shows local and remote commits with their refs and a commit graph, and marks what is ahead of or behind the upstream. Select a commit, or a range of them, and you get its files and a syntax-highlighted diff, either unified or split.
 
 **Changes** shows the status of your working tree and follows the file system. You can stage a file, a hunk or individual lines, discard changes with a copy kept in the Trash, and write a commit in a box with options to amend the last commit or undo it.
 
-Beyond those two tabs, gitty fetches, pulls and pushes with progress shown inside the app, and prompts for passwords or passphrases there too. `/` searches the whole history while you keep working, and `b` compares your current commit with any branch.
+**Files** browses the working tree, with a read-only viewer for the selected file.
+
+Beyond the tabs, gitty fetches, pulls and pushes with progress shown inside the app, and prompts for passwords or passphrases there too. `/` searches the whole history while you keep working, and `b` compares your current commit with any branch. A branch picker switches, creates and merges branches, a stash list keeps work aside, and a merge or rebase that stops on conflicts can be resolved inside gitty.
 
 One design choice matters for trust. gitty runs `git` for everything that writes to your repository and reads with gitoxide. Because of that, your hooks, commit signing, credential helpers and git config work the same way they do on the command line.
 
